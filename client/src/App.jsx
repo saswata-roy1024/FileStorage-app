@@ -1,10 +1,13 @@
 import './App.css'
+import { Button } from "@/components/ui/button"
 
 function App() {
 
   return (
     <>
-      <div>hello World</div>
+      <div>
+        <Button> hello World </Button>
+        </div>
     </>
   )
 }
