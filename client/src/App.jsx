@@ -11,7 +11,7 @@ function App() {
     const formdata = new FormData()
     formdata.append("file", file);
     console.log(formdata);
-    axios.post("http://localhost:8000/upload", formdata)
+    axios.post("http://localhost:8000/api/files/upload", formdata)
       .then(res => console.log(res))
       .catch(err => { console.log(err) })
   }
