@@ -11,7 +11,7 @@ function App() {
     const formdata = new FormData()
     formdata.append("file", file);
     console.log(formdata);
-    axios.post("http://localhost:8000/api/files/upload", formdata)
+    axios.post("http://localhost:8000/api/files/upload", formdata, { headers: { 'Content-Type': 'multipart/form-data' }})
       .then(res => console.log(res))
       .catch(err => { console.log(err) })
   }
@@ -19,8 +19,8 @@ function App() {
   return (
     <>
       <div>
-        <input type="file" onChange={e => setFile(e.target.files[0])} />
-        <Button onClick={handleUpload}>test</Button>
+        <input type="file" onChange={e => setFile(e.target.files[0])} className='hidden'/>
+        <label onClick={handleUpload} className='inline-block'>Upload</label>
       </div>
     </>
   )

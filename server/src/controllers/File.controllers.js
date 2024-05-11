@@ -41,9 +41,13 @@ const Upload = (req, res) => {
 
 
 
+const fetchAll = async(req, res) => {
+    const data = await File.find({ userId: "0000" })
+    data.map(v => console.log(v.filename))
+    res.send(data)
+}
 
 
 
 
-
-export { Upload }
+export { Upload, fetchAll }
