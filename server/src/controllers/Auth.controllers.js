@@ -1,3 +1,5 @@
+import User from '../models/user.models.js'
+
 const SignUp = (req, res, next) => {
 
 }
