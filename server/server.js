@@ -14,7 +14,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.use("/api/u", AuthRouter)
+app.use("/api/auth", AuthRouter)
 app.use("/api/files", FileRouter);
 
 
