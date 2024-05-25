@@ -13,7 +13,8 @@ const SignUp = async (req, res, next) => {
             name,
             email,
             password: HashPassword
-        }).then(() => {
+        }).then((user) => {
+            req.session.user = user;
             res
                 .status(200)
                 .json({
