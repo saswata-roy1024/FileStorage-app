@@ -1,19 +1,20 @@
 import express from "express";
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import passport from 'passport'
 import connection from './src/config/database.js'
 import FileRouter from './src/routes/File.routes.js'
 import AuthRouter from './src/routes/Auth.routes.js'
 import cors from 'cors'
 
 import dotenv from 'dotenv'
-dotenv.config()
+dotenv.config();
 
 
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 6000;
 
-const app = express()
+const app = express();
 
 app.use(session({
     name: "session",
@@ -25,7 +26,7 @@ app.use(session({
         secure: false,
         httpOnly: true,
         sameSite: 'lax',
-        maxAge: 7 * 24 * 60 * 60 * 1000,
+        maxAge: 7 * 24 * 60 * 60000,
     },
     store: MongoStore.create({
         client: connection.getClient(),
@@ -34,13 +35,15 @@ app.use(session({
 
 app.use(cors())
 app.use(express.json())
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api/auth", AuthRouter)
 app.use("/api/files", FileRouter);
 
 
 
-connection.on('open', () => {
+connection.once('open', () => {
     app.listen(PORT, () => console.log(`Server is running on PORT: ${PORT}`))
 });
 
