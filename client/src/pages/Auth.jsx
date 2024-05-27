@@ -79,8 +79,8 @@ function Signup() {
             });
     }
 
-    const handlewithgoogle = async () => {
-
+    const handlewithgoogle = () => {
+        window.location.href = 'http://localhost:8000/api/auth/google';
     }
 
 

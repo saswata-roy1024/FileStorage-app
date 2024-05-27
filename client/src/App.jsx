@@ -1,9 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import Landing from './pages/Landing';
 import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
-
+import AuthCallback from './pages/AuthCallback';
 
 function App() {
   let isAuthenticated = window.localStorage.getItem("isAuthenticated");
@@ -14,6 +14,7 @@ function App() {
         <Route index element={isAuthenticated ? <Navigate to="/dashboard" /> : <Landing />} />
         <Route path="/auth" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Auth />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
       </Routes>
       <Toaster />
     </>

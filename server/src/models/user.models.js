@@ -12,7 +12,6 @@ const Schema = mongoose.Schema({
     },
     password: {
         type: String,
-        require: true
     },
     profilePic: {
         type: String,
@@ -22,6 +21,12 @@ const Schema = mongoose.Schema({
         type: Boolean,
         require: true,
         default: false
+    },
+    method: {
+        type:String,
+        require: true,
+        enum: ['local', 'google'],
+        default: 'local'
     }
 
 }, { timestamps: true })
