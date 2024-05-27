@@ -2,10 +2,10 @@ import { body,validationResult } from 'express-validator';
 
 const validateUser = [
   body('name')
-    .trim()
-    .isLength({ min: 3 }).withMessage('Name must be at least 3 characters long')
-    .isAlpha().withMessage('Name must contain only English alphabet characters')
-    .notEmpty().withMessage('Name is required'),
+  .trim()
+  .isLength({ min: 3 }).withMessage('Name must be at least 3 characters long')
+  .matches(/^[a-zA-Z\s]+$/).withMessage('Name must contain only English alphabet characters and spaces')
+  .notEmpty().withMessage('Name is required'),
 
   body('email')
     .isEmail().withMessage('Invalid email address')

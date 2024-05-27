@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from "react-router-dom"
 import cloud2 from "../assets/cloud.svg"
 import share from "../assets/share.svg"
@@ -26,7 +25,7 @@ function Landing() {
                                         Store, share, and access your files from anywhere with our user-friendly file storage app.
                                     </p>
                                 </div>
-                                
+
                                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                                     <Link
                                         className="inline-flex h-10 items-center justify-center rounded-md bg-indigo-600 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"

@@ -1,39 +1,82 @@
-import React from 'react'
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Link } from 'react-router-dom';
 import G from '../assets/G.png'
 import authSignin from "../assets/auth-signin.svg"
 
 
 
 function Signup() {
-    const [form, setForm] = useState(false)
+    const [form, setForm] = useState(false);
+    const navigate = useNavigate();
 
-    const [inputs, setInputs] = useState({
+    const [signinFields, setSigninFields] = useState({
+        email: "",
+        password: "",
+    });
+
+    const [signupFields, setSignupFields] = useState({
         name: "",
         email: "",
         password: "",
-        repeat_password: "",
+        confirm_password: ""
     });
 
-    const handleChange = (event) => {
+    const handleSigninChange = (event) => {
         const name = event.target.name;
         const value = (event.target.value).trim();
-        setInputs(values => ({ ...values, [name]: value }))
+        setSigninFields(values => ({ ...values, [name]: value }))
+    }
+
+    const handleSignupChange = (event) => {
+        const name = event.target.name;
+        const value = (event.target.value).trim();
+        setSignupFields(values => ({ ...values, [name]: value }))
     }
 
     const handleSignin = async (event) => {
         event.preventDefault();
+        if (signinFields.email != "" && signinFields.password != "") {
 
+            axios.post('/api/auth/signin', signinFields)
+                .then(response => {
+                    if (response.status === 200) {
+                        window.localStorage.setItem("isAuthenticated", true)
+                        console.log('From Auth:' + window.localStorage.getItem("isAuthenticated"));
+                        navigate('/dashboard')
+                    }
+                })
+                .catch(error => {
+                    console.log(error.response);
+                    toast.error("Something went wrong!!", { position: 'top-center' })
+                });
+        }
     }
 
 
     const handleSignup = async (event) => {
         event.preventDefault();
 
+        axios.post('/api/auth/signup', signupFields)
+            .then(response => {
+                if (response.status === 200) {
+                    window.localStorage.setItem("isAuthenticated", true)
+                    navigate('/dashboard')
+                }
+            })
+            .catch(err => {
+                console.log(err.response);
 
+                if (err.response.data.errors) {
+                    err.response.data.errors.map((error) => {
+                        toast.error(error.msg, { duration: 5000, position: 'bottom-right' })
+                    })
+                }
+
+            });
     }
 
     const handlewithgoogle = async () => {
@@ -58,11 +101,11 @@ function Signup() {
 
                     <form onSubmit={handleSignin} className="space-y-4">
                         <div className="space-y-2">
-                            <Input name="email" value={inputs.email} onChange={handleChange} placeholder="Enter your Email" required type="email" className="h-12 bg-slate-50 shadow-lg text-base" />
+                            <Input name="email" value={signinFields.email} onChange={handleSigninChange} placeholder="Enter your Email" required type="email" className="h-12 bg-slate-50 shadow-lg text-base" />
                         </div>
                         <div className="space-y-2">
                             <div className="">
-                                <Input name="password" value={inputs.password} onChange={handleChange} placeholder="Enter your Password" required type="password" className="h-12 bg-slate-50 shadow-lg text-base" />
+                                <Input name="password" value={signinFields.password} onChange={handleSigninChange} placeholder="Enter your Password" required type="password" className="h-12 bg-slate-50 shadow-lg text-base" />
                                 <div className='flex items-center justify-between'>
                                     <Link onClick={() => setForm(true)}
                                         className="text-sm font-medium hover:underline underline-offset-4 text-gray-900 dark:text-gray-50 text-left">
@@ -77,7 +120,7 @@ function Signup() {
 
                             </div>
                         </div>
-                        <Button className="w-full h-12 text-lg font-bold bg-indigo-950 hover:bg-indigo-900 shadow-lg" type="submit">
+                        <Button className="w-full h-12 text-lg font-extrabold bg-indigo-500 text-black hover:bg-indigo-400 shadow-xl" type="submit">
                             Sign in
                         </Button>
                     </form>
@@ -99,23 +142,23 @@ function Signup() {
 
                     <form onSubmit={handleSignup} className="space-y-4">
                         <div className="space-y-2">
-                            <Input name="name" value={inputs.name} onChange={handleChange} placeholder="Enter your fullname" required type="text" className="h-12 bg-slate-50 shadow-lg" />
+                            <Input name="name" value={signupFields.name} onChange={handleSignupChange} placeholder="Enter your Name" required type="text" className="h-12 bg-slate-50 shadow-lg" />
                         </div>
                         <hr />
                         <div className="space-y-2">
-                            <Input name="email" value={inputs.email} onChange={handleChange} placeholder="Enter your Email" required type="email" className="h-12 bg-slate-50 shadow-lg" />
+                            <Input name="email" value={signupFields.email} onChange={handleSignupChange} placeholder="Enter your Email" required type="email" className="h-12 bg-slate-50 shadow-lg" />
                         </div>
 
                         <div className="space-y-2">
-                            <Input name="password" value={inputs.password} onChange={handleChange} placeholder="Enter password" required type="password" className="h-12 bg-slate-50 shadow-lg" />
+                            <Input name="password" value={signupFields.password} onChange={handleSignupChange} placeholder="Enter Password" required type="password" className="h-12 bg-slate-50 shadow-lg" />
                         </div>
 
                         <div className="space-y-2">
                             <div className="">
-                                <Input name="repeat_password" value={inputs.repeat_password} onChange={handleChange} placeholder="Confirm password" required type="password" className="h-12 bg-slate-50 shadow-lg" />
+                                <Input name="confirm_password" value={signupFields.confirm_password} onChange={handleSignupChange} placeholder="Confirm Password" required type="password" className="h-12 bg-slate-50 shadow-lg" />
                             </div>
                         </div>
-                        <Button className="w-full h-12 text-lg font-bold bg-indigo-950 hover:bg-indigo-900 shadow-lg" type="submit">
+                        <Button className="w-full h-12 text-lg font-bold text-black bg-indigo-500 hover:bg-indigo-400 shadow-lg" type="submit">
                             Sign Up
                         </Button>
                     </form>
@@ -124,8 +167,6 @@ function Signup() {
                         href="#">
                         Already have an Account?
                     </p>
-
-
 
                 </div>)}
 
