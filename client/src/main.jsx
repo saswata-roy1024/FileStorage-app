@@ -2,8 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter as Router } from 'react-router-dom'
 import axios from 'axios'
-import { store } from './Redux/Store/store'
+import { store, persistor } from './Redux/Store/store'
 import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react';
 import App from './App.jsx'
 import './index.css'
 
@@ -16,8 +17,10 @@ axios.interceptors.response.use(response => {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
+    <PersistGate loading={null} persistor={persistor}>
+      <Router>
+        <App />
+      </Router>
+    </PersistGate>
   </Provider>
 )
