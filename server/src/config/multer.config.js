@@ -11,6 +11,6 @@ const storage = multer.diskStorage({
 
 const UploadFile = multer({
     storage: storage
-})
+}).single('file');
 
 export default UploadFile

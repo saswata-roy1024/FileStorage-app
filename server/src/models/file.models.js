@@ -24,6 +24,16 @@ const Schema = mongoose.Schema({
     size: {
         type: String,
     },
+    Shared: {
+        type: Array,
+    },
+    starred: {
+        type: Boolean,
+        default: false
+    },
+    deletedAt: {
+        type: Date
+    }
 
 }, { timestamps: true })
 
