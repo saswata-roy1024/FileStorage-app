@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setTabs } from '@/Redux/Slices/tabsSlice';
 import { Button } from '@/components/ui/button';
 import { Archive, Star, Trash2, Share2, FolderOpen, LogOut } from "lucide-react";
+import UploadFile from './UploadFile'
 
 function Sidebar() {
     const dispatch = useDispatch();
@@ -25,25 +26,29 @@ function Sidebar() {
                             <span>My Files</span>
                         </Button>
 
-                        <Button onClick={ () => dispatch(setTabs('Starred'))} 
-                        className="space-x-2" variant="ghost">
+                        <Button onClick={() => dispatch(setTabs('Starred'))}
+                            className="space-x-2" variant="ghost">
                             <Star />
                             <span>Starred</span>
                         </Button>
 
-                        <Button onClick={ () => dispatch(setTabs('Shared'))} 
-                        className="space-x-2" variant="ghost">
+                        <Button onClick={() => dispatch(setTabs('Shared'))}
+                            className="space-x-2" variant="ghost">
                             <Share2 />
                             <span>Shared</span>
                         </Button>
                     </div>
 
-                    <Button onClick={ () => dispatch(setTabs('Trash Bin'))}
-                    className='border-y-2 py-3 w-full text-center text-black dark:text-slate-50 text-base space-x-2' 
-                    variant="ghost">
+                    <Button onClick={() => dispatch(setTabs('Trash Bin'))}
+                        className='border-y-2 py-3 w-full text-center text-black dark:text-slate-50 text-base space-x-2'
+                        variant="ghost">
                         <Trash2 />
                         <span>Trash Bin</span>
                     </Button>
+
+                    <div className='px-2'>
+                        <UploadFile className="w-full" />
+                    </div>
                 </nav>
 
                 <Button variant="ghost" className="w-full text-red-600 hover:text-red-500 flex gap-2 items-center  mb-3 ">

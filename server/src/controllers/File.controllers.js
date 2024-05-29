@@ -25,14 +25,11 @@ const Upload = (req, res) => {
                         type: result.resource_type,
                         format: result.format,
                         size: result.bytes,
-                    }).then(() => {
+                    }).then((file) => {
                         fs.unlink(`uploads/${req.file.filename}`, function (err) {
                             if (err) console.log(err)
                         });
-                        res.status(200).json({
-                            success: true,
-                            message: "Uploaded!",
-                        })
+                        res.status(200).json(file)
                     })
                     console.log(result);
                 }
@@ -47,10 +44,8 @@ const Upload = (req, res) => {
 
 
 const fetchAll = async (req, res) => {
-    if (req.session.passport.user == undefined) res.send('Unauthorized')
-    console.log(req.session.passport.user);
+    if (!req.isAuthenticated()) return res.status(401).send('Unauthorized');
     const data = await File.find({ userId: req.session.passport.user })
-    data.map(v => console.log(v.filename))
     res.send(data)
 }
 
