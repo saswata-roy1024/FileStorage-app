@@ -4,18 +4,20 @@ import storage from 'redux-persist/lib/storage';
 
 import tabsReducer from '../Slices/tabsSlice';
 import filesReducer from '../Slices/filesSlice';
+import searchReducer from '../Slices/searchSlice';
 
 
 
 const rootReducer = combineReducers({
   tabs: tabsReducer,
   files: filesReducer,
+  search: searchReducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['tabs'],
+  blacklist: ['tabs', 'search'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
