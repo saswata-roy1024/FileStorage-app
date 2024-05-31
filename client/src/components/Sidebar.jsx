@@ -9,9 +9,9 @@ function Sidebar() {
     const dispatch = useDispatch();
 
     return (
-        <div className='w-52 dark:bg-[#152030] py-5 h-screen'>
+        <div className='w-[20%] lg:max-w-60 dark:bg-[#152030] py-5 h-screen'>
 
-            <div className='min-w-12 md:w-52 pb-5 flex justify-center gap-2 border-b-2 font-bold text-xl items-center'>
+            <div className='min-w-12 lg:w-full pb-5 flex justify-center gap-2 border-b-2 font-bold lg:text-xl items-center'>
                 <FolderOpen />
                 FileStorage
             </div>

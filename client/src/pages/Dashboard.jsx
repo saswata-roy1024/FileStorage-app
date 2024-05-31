@@ -5,7 +5,7 @@ function Dashboard() {
   if (!window.localStorage.getItem("isAuthenticated")) return <Navigate to="/" />;
 
   return (
-    <div className='h-screen flex gap-4'>
+    <div className='h-screen flex'>
       <Sidebar />
       <MainContainer />
     </div>
