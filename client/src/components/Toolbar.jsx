@@ -6,6 +6,7 @@ import UploadFile from '@/components/UploadFile';
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react';
 import { setSearch } from '@/Redux/Slices/searchSlice';
+import Dropdown from './Dropdown';
 
 
 function Toolbar() {
@@ -44,7 +45,7 @@ function Toolbar() {
 
             <div className='flex justify-center items-center gap-2'>
                 <Input onChange={(e) => dispatch(setSearch(e.target.value))} type="text" placeholder="Search" className="w-[18rem] h-12 placeholder:font-bold text-base border-slate-500 " />
-                <Button className='h-12'><ListFilter /></Button>
+                <Dropdown className='h-12' />
             </div>
 
             <div className='w-full flex justify-between items-center'>
