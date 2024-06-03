@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['tabs', 'search', 'dropdownReducer'],
+  blacklist: ['tabs', 'search', 'dropdown'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
