@@ -1,7 +1,7 @@
 import cloudinary from "../utils/cloudinary.js";
 import File from "../models/file.models.js"
 import UploadFile from "../config/multer.config.js";
-import  getResourceType  from "../services/getResourceType.js";
+import getResourceType from "../services/getResourceType.js";
 import fs from 'fs';
 
 const Upload = (req, res) => {
@@ -52,6 +52,22 @@ const fetchAll = async (req, res) => {
 }
 
 
+const toggeleStar = async (req, res) => {
+    if (!req.isAuthenticated()) return res.status(401).send('Unauthorized');
+    try {
+        const file = await File.findOne({ _id: req.params.id, userId: req.session.passport.user });
+        if (!file) {
+            return res.status(404).json({ error: 'File not found' });
+        }
+        file.starred = !file.starred;
+        await file.save();
+        res.json(file);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
 
 
-export { Upload, fetchAll }
+
+
+export { Upload, fetchAll, toggeleStar }
