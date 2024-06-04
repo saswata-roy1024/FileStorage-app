@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Play, Text, EllipsisVertical } from 'lucide-react';
+import { Image, Play, Text } from 'lucide-react';
 import MoreMenu from './MoreMenu';
 
 function Card({ file }) {
@@ -14,7 +14,7 @@ function Card({ file }) {
         <div className="max-w-sm my-10 bg-white shadow-md rounded-lg overflow-hidden h-80 w-full hover:shadow-2xl ">
             <div className="relative">
                 <img className="w-full h-48 object-cover" src={file.url} alt="File Image" />
-                <MoreMenu />
+                <MoreMenu fileId={file._id} isStarred={file.starred} />
             </div>
             <div className="p-4">
                 <h2 className="text-xl font-semibold text-gray-800 overflow-hidden w-64 h-8">{file.filename}</h2>

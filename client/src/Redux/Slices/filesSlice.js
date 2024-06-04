@@ -21,6 +21,11 @@ export const uploadFile = createAsyncThunk('files/uploadFile', async (file) => {
   return response.data;
 });
 
+export const toggleStarFile = createAsyncThunk('files/toggleStarFile', async (fileId) => {
+  const response = await axios.post(`http://localhost:8000/api/files/${fileId}/toggleStar`);
+  return response.data;
+});
+
 
 const filesSlice = createSlice({
   name: 'files',
@@ -42,6 +47,13 @@ const filesSlice = createSlice({
       })
       .addCase(uploadFile.fulfilled, (state, action) => {
         state.files.push(action.payload);
+      })
+      .addCase(toggleStarFile.fulfilled, (state, action) => {
+        const index = state.files.findIndex(file => file._id === action.payload._id);
+        console.log(index);
+        if (index !== -1) {
+          state.files[index].starred = action.payload.starred;
+        }
       })
   },
 });

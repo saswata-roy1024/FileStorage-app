@@ -55,7 +55,7 @@ const fetchAll = async (req, res) => {
 const toggeleStar = async (req, res) => {
     if (!req.isAuthenticated()) return res.status(401).send('Unauthorized');
     try {
-        const file = await File.findOne({ _id: req.params.id, userId: req.session.passport.user });
+        const file = await File.findOne({ _id: req.params.id });
         if (!file) {
             return res.status(404).json({ error: 'File not found' });
         }
@@ -63,6 +63,7 @@ const toggeleStar = async (req, res) => {
         await file.save();
         res.json(file);
     } catch (err) {
+        console.log(err);
         res.status(500).json({ error: err.message });
     }
 };

@@ -1,4 +1,6 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { toggleStarFile } from '@/Redux/Slices/filesSlice';
 import { EllipsisVertical } from 'lucide-react';
 import {
     DropdownMenu,
@@ -9,8 +11,15 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 
-function MoreMenu() {
-    
+function MoreMenu({ fileId, isStarred }) {
+
+    const dispatch = useDispatch();
+
+    const handleToggleStar = () => {
+        dispatch(toggleStarFile(fileId));
+    };
+
+
     return (
 
         <DropdownMenu>
@@ -23,7 +32,7 @@ function MoreMenu() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem >Download</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem >Mark as Star</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleToggleStar} >{isStarred ? 'Unstar' : 'Mark as Star'}</DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className='text-red-500 flex justify-center'>Delete</DropdownMenuItem>
                 <DropdownMenuSeparator />
