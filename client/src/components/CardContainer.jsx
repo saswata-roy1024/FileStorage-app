@@ -9,6 +9,7 @@ function CardContainer() {
   const dispatch = useDispatch();
   const files = useSelector((state) => state.files.files);
   const selectedOptions = useSelector((state) => state.dropdown.selectedOptions);
+  const tabs = useSelector((state) => state.tabs.value);
 
   useEffect(() => {
     dispatch(fetchFiles());
@@ -16,10 +17,19 @@ function CardContainer() {
 
 
   const filteredFiles = files?.filter((item) => {
+
     const matchesSearch = search.toLowerCase() === '' || item.filename.toLowerCase().includes(search.toLowerCase());
     const matchesFileType = selectedOptions.all || selectedOptions[item.type];
-    const isNotDeleted = item.deletedAt === null;
-    return matchesSearch && matchesFileType && isNotDeleted;
+    let condition = '';
+
+    if (tabs == 'My Files') {
+      condition = item.deletedAt === null;
+    } else if (tabs == 'Trash Bin') {
+      condition = item.deletedAt != null;
+    } else if (tabs == 'Starred') {
+      condition = item.starred == true;
+    }
+    return matchesSearch && matchesFileType && condition;
   });
 
 
