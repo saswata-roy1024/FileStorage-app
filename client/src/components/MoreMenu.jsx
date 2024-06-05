@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
+import downloadFile from './features/downloadFile';
 import { toggleStarFile, deleteFile } from '@/Redux/Slices/filesSlice';
 import { EllipsisVertical } from 'lucide-react';
 import {
@@ -11,18 +12,22 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 
-function MoreMenu({ fileId, isStarred }) {
+function MoreMenu({ file }) {
 
     const dispatch = useDispatch();
 
     const handleToggleStar = () => {
-        dispatch(toggleStarFile(fileId));
+        console.log(file._id)
+        dispatch(toggleStarFile(file._id));
     };
 
-    const handledeleteFile = () => {
-        dispatch(deleteFile(fileId));
+    const handleDeleteFile = () => {
+        dispatch(deleteFile(file._id));
     };
 
+    const handleDownloadFile = () => {
+        downloadFile(file.url, file.filename)
+    };
 
     return (
 
@@ -34,11 +39,11 @@ function MoreMenu({ fileId, isStarred }) {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem >Share</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem >Download</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDownloadFile}>Download</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleToggleStar} >{isStarred ? 'Unstar' : 'Mark as Star'}</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleToggleStar} >{file.starred ? 'Unstar' : 'Mark as Star'}</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handledeleteFile} className='text-red-500 flex justify-center'>Delete</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDeleteFile} className='text-red-500 flex justify-center'>Delete</DropdownMenuItem>
                 <DropdownMenuSeparator />
             </DropdownMenuContent>
         </DropdownMenu>
