@@ -26,6 +26,12 @@ export const toggleStarFile = createAsyncThunk('files/toggleStarFile', async (fi
   return response.data;
 });
 
+export const deleteFile = createAsyncThunk('files/deleteFile', async (fileId) => {
+  const response = await axios.post(`http://localhost:8000/api/files/${fileId}/delete`);
+  return response.data;
+});
+
+
 
 const filesSlice = createSlice({
   name: 'files',
@@ -53,6 +59,13 @@ const filesSlice = createSlice({
         console.log(index);
         if (index !== -1) {
           state.files[index].starred = action.payload.starred;
+        }
+      })
+      .addCase(deleteFile.fulfilled, (state, action) => {
+        const index = state.files.findIndex(file => file._id === action.payload._id);
+        console.log(index);
+        if (index !== -1) {
+          state.files[index].deletedAt = action.payload.deletedAt;
         }
       })
   },

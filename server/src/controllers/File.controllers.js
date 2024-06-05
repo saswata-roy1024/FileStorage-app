@@ -69,6 +69,27 @@ const toggeleStar = async (req, res) => {
 };
 
 
+const deleteFile = async (req, res) => {
+    // if (!req.isAuthenticated()) return res.status(401).send('Unauthorized');
+    try {
+        const file = await File.findOne({ _id: req.params.id });
+        if (!file) {
+            return res.status(404).json({ error: 'File not found' });
+        }
+        if (file.deletedAt == null) {
+            file.deletedAt = new Date();
+        } else {
+            file.deletedAt = null;
+        }
+        await file.save();
+        res.json(file);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: err.message });
+    }
+}
 
 
-export { Upload, fetchAll, toggeleStar }
+
+
+export { Upload, fetchAll, toggeleStar, deleteFile }

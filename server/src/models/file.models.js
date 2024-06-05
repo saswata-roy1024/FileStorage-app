@@ -32,9 +32,12 @@ const Schema = mongoose.Schema({
         default: false
     },
     deletedAt: {
-        type: Date
+        type: Date,
+        default: null
     }
 
 }, { timestamps: true })
+
+Schema.index({ deletedAt: 1 }, { expireAfterSeconds: 2592000 });
 
 export default mongoose.model("File", Schema);

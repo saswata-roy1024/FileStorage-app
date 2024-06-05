@@ -18,8 +18,9 @@ function CardContainer() {
   const filteredFiles = files?.filter((item) => {
     const matchesSearch = search.toLowerCase() === '' || item.filename.toLowerCase().includes(search.toLowerCase());
     const matchesFileType = selectedOptions.all || selectedOptions[item.type];
-    return matchesSearch && matchesFileType;
-});
+    const isNotDeleted = item.deletedAt === null;
+    return matchesSearch && matchesFileType && isNotDeleted;
+  });
 
 
   return (
