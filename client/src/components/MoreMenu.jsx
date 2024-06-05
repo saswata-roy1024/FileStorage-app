@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import downloadFile from './features/downloadFile';
 import { toggleStarFile, deleteFile } from '@/Redux/Slices/filesSlice';
-import { EllipsisVertical, Copy } from 'lucide-react';
+import { EllipsisVertical, Copy, Share2, ArrowDownToLine, Star, Trash2 } from 'lucide-react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -56,13 +56,13 @@ function MoreMenu({ file }) {
             </DropdownMenuTrigger>
             <DropdownMenuContent className='px-2 *:text-base *:font-semibold *:w-36'>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => setIsAlertDialogOpen(true)} >Share</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setIsAlertDialogOpen(true)} className='gap-2' > <Share2 size={19} /> Share</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleDownloadFile}>Download</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDownloadFile} className='gap-2'><ArrowDownToLine size={19} /> Download</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleToggleStar} >{file.starred ? 'Unstar' : 'Mark as Star'}</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleToggleStar} className='gap-2'> <Star size={19} /> {file.starred ? 'Unstar' : 'Mark as Star'}</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleDeleteFile} className='text-red-500 flex justify-center'>Delete</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDeleteFile} className='text-red-500 gap-2'> <Trash2 size={19} /> Delete</DropdownMenuItem>
                 <DropdownMenuSeparator />
             </DropdownMenuContent>
         </DropdownMenu>
