@@ -5,6 +5,7 @@ import passport from 'passport'
 import connection from './src/config/database.js'
 import FileRouter from './src/routes/File.routes.js'
 import AuthRouter from './src/routes/Auth.routes.js'
+import UserRouter from './src/routes/User.routes.js'
 import cors from 'cors'
 
 import dotenv from 'dotenv'
@@ -38,8 +39,10 @@ app.use(express.json())
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/api/auth", AuthRouter)
+app.use("/api/auth", AuthRouter);
 app.use("/api/files", FileRouter);
+app.use("/api/u", UserRouter);
+
 
 
 
