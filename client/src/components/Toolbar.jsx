@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react';
 import { setSearch } from '@/Redux/Slices/searchSlice';
 import Dropdown from './Dropdown';
+import Profile from './ProfileComponent';
 
 
 function Toolbar() {
@@ -23,24 +24,7 @@ function Toolbar() {
                     <Hash />
                     <span>{tabs}</span>
                 </div>
-                <div className='flex items-center gap-5 '>
-
-                    <Button className="rounded-full border border-slate-600" size="icon" variant="ghost">
-                        <img
-                            alt="Avatar"
-                            className="rounded-full "
-                            height="42"
-                            src="/placeholder.svg"
-                            style={{
-                                aspectRatio: "42/42",
-                                objectFit: "cover",
-                            }}
-                            width="42"
-                        />
-                    </Button>
-
-
-                </div>
+                <Profile />
             </nav>
 
             <div className='flex justify-center items-center gap-2'>

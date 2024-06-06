@@ -9,7 +9,6 @@ const initialState = {
 
 export const fetchFiles = createAsyncThunk('files/fetchFiles', async () => {
   const response = await axios.get('http://localhost:8000/api/files/all');
-  console.log("FetchFiles:" + response.data);
   return response.data;
 });
 
@@ -44,7 +43,6 @@ const filesSlice = createSlice({
       })
       .addCase(fetchFiles.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        console.log(action.payload);
         state.files = action.payload;
       })
       .addCase(fetchFiles.rejected, (state, action) => {
@@ -56,14 +54,12 @@ const filesSlice = createSlice({
       })
       .addCase(toggleStarFile.fulfilled, (state, action) => {
         const index = state.files.findIndex(file => file._id === action.payload._id);
-        console.log(index);
         if (index !== -1) {
           state.files[index].starred = action.payload.starred;
         }
       })
       .addCase(deleteFile.fulfilled, (state, action) => {
         const index = state.files.findIndex(file => file._id === action.payload._id);
-        console.log(index);
         if (index !== -1) {
           state.files[index].deletedAt = action.payload.deletedAt;
         }

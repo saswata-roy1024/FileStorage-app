@@ -6,6 +6,7 @@ import tabsReducer from '../Slices/tabsSlice';
 import filesReducer from '../Slices/filesSlice';
 import searchReducer from '../Slices/searchSlice';
 import dropdownReducer from '../Slices/dropdownSlice';
+import userReducer from '../Slices/userSlice';
 
 
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   files: filesReducer,
   search: searchReducer,
   dropdown: dropdownReducer,
+  user: userReducer,
 })
 
 const persistConfig = {
