@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react';
 import { setSearch } from '@/Redux/Slices/searchSlice';
 import Dropdown from './Dropdown';
-import Profile from './ProfileComponent';
+import { Profile } from './ProfileComponent';
 
 
 function Toolbar() {

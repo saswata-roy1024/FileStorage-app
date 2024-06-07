@@ -10,10 +10,16 @@ import './index.css'
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
-axios.interceptors.response.use(response => {
-  console.log(response)  // handels axios respones and error response
-  return response;
-});
+axios.interceptors.response.use(
+  response => {
+    console.log('Response:', response);
+    return response;
+  },
+  error => {
+    console.error('Error:', error);
+    return Promise.reject(error);
+  }
+);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
