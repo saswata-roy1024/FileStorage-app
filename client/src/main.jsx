@@ -12,11 +12,11 @@ axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
 axios.interceptors.response.use(
   response => {
-    console.log('Response:', response);
+    console.log('Axios Response:', response);
     return response;
   },
   error => {
-    console.error('Error:', error);
+    console.error(error);
     return Promise.reject(error);
   }
 );
