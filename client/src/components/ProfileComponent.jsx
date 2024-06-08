@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser, updateUser } from '@/Redux/Slices/userSlice';
 import { Input } from '@/components/ui/input';
@@ -21,20 +23,31 @@ export function Profile() {
     const user = useSelector((state) => state.user.value);
 
     const [option, setOptions] = useState('default');
-    const [name, setName] = useState(user?.name || '');
-    const [email, setEmail] = useState(user?.email || '');
+
+    const [userFields, setUserFields] = useState({
+        name: user?.name || '',
+        email: user?.email || '',
+    });
+
+    const handleUserChange = (event) => {
+        const name = event.target.name;
+        const value = (event.target.value).trim();
+        setUserFields(values => ({ ...values, [name]: value }))
+    }
 
     useEffect(() => {
         dispatch(fetchUser());
     }, [dispatch]);
 
     useEffect(() => {
-        setName(user?.name || '');
-        setEmail(user?.email || '');
+        setUserFields({
+            name: user?.name || '',
+            email: user?.email || '',
+        })
     }, [user]);
 
     const handleSaveChanges = () => {
-        dispatch(updateUser({ name, email }));
+        dispatch(updateUser(userFields));
     };
 
 
@@ -46,12 +59,12 @@ export function Profile() {
                     <AvatarFallback>user</AvatarFallback>
                 </Avatar>
             </SheetTrigger>
-            {getOptions(option, setOptions, user, name, setName, email, setEmail, handleSaveChanges)}
+            {getOptions(option, setOptions, user, userFields, handleUserChange, handleSaveChanges)}
         </Sheet>
     );
 }
 
-const getOptions = (option, setOptions, user, name, setName, email, setEmail, handleSaveChanges) => {
+const getOptions = (option, setOptions, user, userFields, handleUserChange, handleSaveChanges) => {
     switch (option) {
         case 'default':
             return (
@@ -100,11 +113,11 @@ const getOptions = (option, setOptions, user, name, setName, email, setEmail, ha
                     <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
                             <label htmlFor="name" className="text-right">Name</label>
-                            <Input id="name" value={name} onChange={(e) => setName(e.target.value)} className="col-span-3" />
+                            <Input name="name" value={userFields.name} onChange={handleUserChange} className="col-span-3" />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
                             <label htmlFor="email" className="text-right">Email</label>
-                            <Input id="email" value={email} onChange={(e) => setEmail(e.target.value)} className="col-span-3" />
+                            <Input name="email" value={userFields.email} onChange={handleUserChange} className="col-span-3" />
                         </div>
                     </div>
                     <SheetFooter>
