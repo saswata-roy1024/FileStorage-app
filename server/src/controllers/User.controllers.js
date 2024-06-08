@@ -1,5 +1,8 @@
 import User from '../models/user.models.js'
 import { body, validationResult } from 'express-validator';
+import otpModel from '../models/otp.models.js'
+import mailer from '../config/nodemailer.config.js';
+import bcrypt from 'bcrypt'
 
 const fetchUser = async (req, res) => {
     const _id = req.session.passport.user;
@@ -64,5 +67,43 @@ const updateUser = [
 ];
 
 
-export { fetchUser, updateUser };
+
+
+
+const sendOtp = async (req, res) => {
+    const _id = req.session.passport.user;
+    if (!_id) return res.status(401).send('Unauthorized');
+
+    try {
+        const user = await User.findOne({ _id });
+        if (!user) return res.status(404).send('User not found');
+
+        const otp = String(Math.floor(1000 + Math.random() * 9000));
+        const HashedOtp = await bcrypt.hash(otp, 10);
+
+        const oldOtp = await otpModel.findOne({ userId: _id });
+        if (oldOtp) await otpModel.deleteOne({ userId: _id });
+
+        await otpModel.create({
+            otp: HashedOtp,
+            userId: _id,
+        });
+
+        mailer(user.email, otp)
+            .then(response => res.send('Otp sended Successfully'))
+            .catch(error => res.status(500).send('Error sending email'));
+
+    } catch (error) {
+        console.log('Error:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+const verifyOtp = (req, res) => {
+
+}
+
+
+export { fetchUser, updateUser, sendOtp, verifyOtp };
+
 
