@@ -6,7 +6,7 @@ import { fetchUser, updateUser } from '@/Redux/Slices/userSlice';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { CircleUserRound, MailCheck, KeyRound } from 'lucide-react';
+import { CircleUserRound, MailCheck, KeyRound, CheckCheck } from 'lucide-react';
 import {
     Sheet,
     SheetContent,
@@ -22,7 +22,20 @@ export function Profile() {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.value);
 
+    const [otp, setOtp] = useState("");
     const [option, setOptions] = useState('default');
+    const [countdown, setCountdown] = useState(0);
+    const [canResend, setCanResend] = useState(false);
+    const [initialSend, setInitialSend] = useState(true);
+
+    useEffect(() => {
+        if (countdown === 0) {
+            setCanResend(true);
+        } else if (countdown > 0) {
+            const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [countdown]);
 
     const [userFields, setUserFields] = useState({
         name: user?.name || '',
@@ -50,6 +63,51 @@ export function Profile() {
         dispatch(updateUser(userFields));
     };
 
+    const handleResendClick = () => {
+        setInitialSend(false);
+        setCountdown(10);
+        setCanResend(false);
+        reSendOtp();
+    };
+
+    const handleOtpChange = (event) => {
+        const inputValue = event.target.value;
+        if (/^\d*\.?\d*$/.test(inputValue)) {
+            setOtp(inputValue);
+        }
+    };
+
+    const reSendOtp = () => {
+        axios.get('/api/u/verify')
+            .then(response => {
+                if (response.status === 200) {
+                    toast.success("Email sent to: " + user.email);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                toast.error("Something went wrong!", { position: 'top-center' });
+            });
+    };
+
+    const handleOtp = (event) => {
+        event.preventDefault();
+        axios.post('/api/u/verify', { otp })
+            .then(response => {
+                if (response.status === 200) {
+                    dispatch(fetchUser());
+                    toast.success("Account verified successfully", { position: 'top-center' });
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                if (error.response.status == 400) {
+                    toast.error("Invalid OTP!", { position: 'top-center' });
+                } else {
+                    toast.error("Something went wrong!", { position: 'top-center' });
+                }
+            });
+    };
 
     return (
         <Sheet onOpenChange={(isOpen) => { if (!isOpen) setOptions('default'); }}>
@@ -59,12 +117,14 @@ export function Profile() {
                     <AvatarFallback>user</AvatarFallback>
                 </Avatar>
             </SheetTrigger>
-            {getOptions(option, setOptions, user, userFields, handleUserChange, handleSaveChanges)}
+            {getOptions(option, setOptions, user, userFields, handleUserChange, handleSaveChanges, otp, handleOtpChange, handleOtp, handleResendClick, canResend, countdown, initialSend)}
         </Sheet>
     );
 }
 
-const getOptions = (option, setOptions, user, userFields, handleUserChange, handleSaveChanges) => {
+
+
+const getOptions = (option, setOptions, user, userFields, handleUserChange, handleSaveChanges, otp, handleOtpChange, handleOtp, handleResendClick, canResend, countdown, initialSend) => {
     switch (option) {
         case 'default':
             return (
@@ -83,7 +143,9 @@ const getOptions = (option, setOptions, user, userFields, handleUserChange, hand
                         <hr />
                     </SheetHeader>
                     <div className='flex flex-col gap-3 text-black dark:text-slate-50 w-full items-start'>
-                        <Button onClick={() => setOptions('update')} className="space-x-2 w-full outline" variant="ghost">
+                        <Button onClick={() => {
+                            setOptions('update');
+                        }} className="space-x-2 w-full outline" variant="ghost">
                             <CircleUserRound />
                             <span className='text-lg mb-1'>Update Profile</span>
                         </Button>
@@ -129,15 +191,56 @@ const getOptions = (option, setOptions, user, userFields, handleUserChange, hand
                 </SheetContent>
             );
         case 'verify':
-            return (
+            return !user.verified ? (
                 <SheetContent>
                     <SheetHeader>
                         <SheetTitle>Verify Email</SheetTitle>
-                        <SheetDescription>Follow the instructions sent to your email to verify your account.</SheetDescription>
+                        <SheetDescription>
+                            Follow the instructions sent to your email to verify your account.
+                        </SheetDescription>
                     </SheetHeader>
+                    <div className='my-8'>
+                        <input
+                            type="email"
+                            value={user.email}
+                            disabled
+                            className='block rounded-sm py-3 px-4 w-full text-lg bg-slate-200 select-none disabled:text-gray-500 text-center'
+                        />
+                        <hr className='my-3' />
+                        <input
+                            type="text"
+                            autoFocus
+                            maxLength="4"
+                            placeholder='OTP'
+                            value={otp}
+                            onChange={handleOtpChange}
+                            className='text-center rounded-sm py-3 px-4 w-full block placeholder-gray-500 text-lg bg-slate-200 focus:outline-none font-bold'
+                        />
+                    </div>
+                    <SheetFooter>
+                        <Button
+                            onClick={handleResendClick}
+                            disabled={!canResend && !initialSend}
+                            className={`font-bold rounded-sm text-base text-sky-200 ${canResend || initialSend ? 'bg-sky-900 hover:bg-sky-800' : 'bg-gray-400 cursor-not-allowed'}`}
+                        >
+                            {initialSend ? 'Send' : canResend ? 'Re-Send' : `Re-Send in ${countdown}s`}
+                        </Button>
+                        <Button onClick={handleOtp} className='font-bold bg-sky-900 rounded-sm text-base text-sky-200 hover:bg-sky-800'>
+                            Verify
+                        </Button>
+                        <SheetClose>
+                            <Button variant="ghost">Cancel</Button>
+                        </SheetClose>
+                    </SheetFooter>
+                </SheetContent>
+            ) : (
+                <SheetContent className='py-24'>
+                    <div className='bg-green-300 p-2 text-lg font-bold text-green-800 flex justify-center gap-2 items-center rounded-sm'>
+                        <CheckCheck size={'27'} />  Email Already Verified
+                    </div>
                     <SheetFooter>
                         <SheetClose asChild>
-                            <Button variant="ghost">Close</Button>
+                            <Button variant="outline" className='my-3'>Close</Button>
                         </SheetClose>
                     </SheetFooter>
                 </SheetContent>
