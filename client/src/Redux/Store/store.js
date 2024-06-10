@@ -7,6 +7,7 @@ import filesReducer from '../Slices/filesSlice';
 import searchReducer from '../Slices/searchSlice';
 import dropdownReducer from '../Slices/dropdownSlice';
 import userReducer from '../Slices/userSlice';
+import sortByReducer from '../Slices/sortBySlice';
 
 
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   search: searchReducer,
   dropdown: dropdownReducer,
   user: userReducer,
+  sortBy: sortByReducer,
 })
 
 const persistConfig = {
