@@ -86,7 +86,16 @@ export function Profile() {
     };
 
     const reSendOtp = () => {
-        
+        axios.get('/api/u/verify')
+            .then(response => {
+                if (response.status === 200) {
+                    toast.success("Email sent to: " + user.email);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                toast.error("Some error occured can\'t send the Email!", { position: 'top-center' });
+            });
     };
 
     const handleOtp = (event) => {
