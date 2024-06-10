@@ -112,6 +112,33 @@ export function Profile() {
 
     const ChangePassword = () => {
 
+        if (passwordFields.newPassword !== passwordFields.confirmPassword) {
+            return toast.error("Passwords do not match!", { position: 'top-center' });
+        } else if (!passwordFields.newPassword || !passwordFields.confirmPassword) {
+            return toast.error("Empty input fields!", { position: 'top-center' });
+
+        }
+
+        const Fields = {
+            newPassword: passwordFields.newPassword,
+            oldPassword: passwordFields.oldPassword,
+        }
+
+        axios.post('/api/u/change-password', Fields)
+            .then(response => {
+                if (response.status === 200) {
+                    toast.success("Password changed successfully", { position: 'top-center' });
+                    setPasswordFields({ oldPassword: '', newPassword: '', confirmPassword: '' });
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.data && error.response.data.errors) {
+                    console.log('Validation errors:', error.response.data.errors);
+                    error.response.data.errors.forEach((err) => toast.error(err.msg, { duration: 5000, position: 'top-center' }));
+                } else {
+                    toast.error(error.response.data, { duration: 5000, position: 'top-center' });
+                }
+            });
     };
 
     const ResetPassword = () => {
