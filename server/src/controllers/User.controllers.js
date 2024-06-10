@@ -118,6 +118,43 @@ const verifyEmail = async (req, res) => {
 
 
 
-export { fetchUser, updateUser, sendOtp, verifyEmail };
+const changePassword = [
+    body('newPassword')
+        .isLength({ min: 8, max: 16 }).withMessage('Password must be between 8 and 16 characters long')
+        .matches(/[A-Z]/).withMessage('Password must contain at least one uppercase letter')
+        .matches(/[a-z]/).withMessage('Password must contain at least one lowercase letter')
+        .matches(/\d/).withMessage('Password must contain at least one number')
+        .matches(/[!@#$%^&*.?:]/).withMessage('Password must contain at least one special character from !@#$%^&*.?:')
+        .not().matches(/[{}|<>()]/).withMessage('Password must not contain invalid characters {}|<>()')
+        .notEmpty().withMessage('Password is required'),
+
+    async (req, res) => {
+        const { newPassword, oldPassword } = req.body;
+
+        const _id = req.session.passport.user;
+        if (!_id) return res.status(401).send('Unauthorized');
+
+        try {
+            const user = await User.findOne({ _id });
+            if (!user) return res.status(404).send('User not found');
+            else if (!oldPassword) return res.status(400).send('Old Password required!');
+            else if (!(bcrypt.compareSync(oldPassword, user.password))) return res.status(401).send('Invalid Credentials');
+
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+            user.password = await bcrypt.hash(newPassword, 10);
+            user.save();
+            res.status(200).json({ msg: 'Success' });
+        } catch (error) {
+            console.log('Error:', error);
+            res.status(500).send('Internal Server Error')
+        }
+    }
+];
+
+
+
+export { fetchUser, updateUser, sendOtp, verifyEmail, changePassword };
 
 
