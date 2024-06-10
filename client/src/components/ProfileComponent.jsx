@@ -115,7 +115,42 @@ export function Profile() {
     };
 
     const ResetPassword = () => {
-      
+        if (passwordFields.newPassword !== passwordFields.confirmPassword) {
+            return toast.error("Passwords do not match!", { position: 'top-center' });
+        } else if (passwordFields.newPassword == '' || passwordFields.confirmPassword == '') {
+            return toast.error("Empty input fields!", { position: 'top-center' });
+        }
+
+        const Fields = {
+            newPassword: passwordFields.newPassword,
+            otp
+        }
+        
+        axios.post('/api/u/reset-password', Fields)
+            .then(response => {
+                if (response.status === 200) {
+                    toast.success("Password reset successfully", { position: 'top-center' });
+                    setPasswordFields({ oldPassword: '', newPassword: '', confirmPassword: '' });
+                    setOtp('');
+                }
+            })
+            .catch(error => handleError(error));
+    };
+
+    const handleError = (error) => {
+        if (error.response && error.response.data && error.response.data.errors) {
+            console.log('Validation errors:', error.response.data.errors);
+            error.response.data.errors.forEach((err) => toast.error(err.msg, { duration: 5000, position: 'top-center' }));
+        } else if (error.response.data) {
+            console.log('An error occurred:', error.message);
+            toast.error(error.response.data, { duration: 5000, position: 'top-center' });
+        } else if (error.response.data.msg) {
+            console.log('An error occurred:', error.message);
+            toast.error(error.response.data.msg, { duration: 5000, position: 'top-center' });
+        } else {
+            console.log('An error occurred:', error.message);
+            toast.error('An error occurred. Please try again.', { duration: 5000, position: 'top-center' });
+        }
     };
 
 
