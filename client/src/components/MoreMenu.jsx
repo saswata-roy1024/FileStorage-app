@@ -24,6 +24,7 @@ import {
 
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import generateLink from './features/generateLink'
 
 function MoreMenu({ file }) {
 
@@ -45,7 +46,8 @@ function MoreMenu({ file }) {
     };
 
     const handleCopyLink = () => {
-        navigator.clipboard.writeText(file.url);
+        const link = generateLink(file._id);
+        navigator.clipboard.writeText(link);
     };
 
     return (<>
@@ -77,7 +79,7 @@ function MoreMenu({ file }) {
                     <AlertDialogTitle>Link:</AlertDialogTitle>
                     <AlertDialogDescription>
                         <div className="flex items-center space-x-2">
-                            <Input value={file.url} disabled className='disabled:cursor-default disabled:opacity-100'/>
+                            <Input value={generateLink(file._id)} disabled className='disabled:cursor-default disabled:opacity-100'/>
                             <Button variant="outline" size="icon" onClick={handleCopyLink}><Copy /></Button>
                         </div>
                     </AlertDialogDescription>

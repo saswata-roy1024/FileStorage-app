@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux'
 import { setTabs } from '@/Redux/Slices/tabsSlice';
 import { Button } from '@/components/ui/button';
-import { Archive, Star, Trash2, Share2, FolderOpen, LogOut } from "lucide-react";
+import { Archive, Star, Trash2, Bookmark, FolderOpen, LogOut } from "lucide-react";
 import UploadFile from './UploadFile'
 
 function Sidebar() {
@@ -21,21 +21,21 @@ function Sidebar() {
                     <div className='flex flex-col gap-3 text-black dark:text-slate-50 w-full'>
 
                         <Button onClick={() => dispatch(setTabs('My Files'))}
-                            className="space-x-2 ml-2" variant="ghost">
+                            className="space-x-2 relative" variant="ghost">
                             <Archive />
                             <span>My Files</span>
                         </Button>
 
                         <Button onClick={() => dispatch(setTabs('Starred'))}
-                            className="space-x-2" variant="ghost">
+                            className="space-x-2 relative right-1" variant="ghost">
                             <Star />
                             <span>Starred</span>
                         </Button>
 
-                        <Button onClick={() => dispatch(setTabs('Shared'))}
-                            className="space-x-2" variant="ghost">
-                            <Share2 />
-                            <span>Shared</span>
+                        <Button onClick={() => dispatch(setTabs('Saved'))}
+                            className="space-x-2 relative right-2" variant="ghost">
+                            <Bookmark />
+                            <span>Saved</span>
                         </Button>
                     </div>
 

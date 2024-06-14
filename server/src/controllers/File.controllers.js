@@ -47,9 +47,21 @@ const Upload = (req, res) => {
 
 const fetchAll = async (req, res) => {
     if (!req.isAuthenticated()) return res.status(401).send('Unauthorized');
-    const data = await File.find({ userId: req.session.passport.user })
-    res.send(data)
+    const files = await File.find({ userId: req.session.passport.user })
+    res.send(files)
 }
+
+
+const fetchSingle = async (req, res) => {
+
+    const { id } = req.params;
+    if (!id) return res.status(400).send('Invalid id');
+
+    const file = await File.findOne({ _id: id })
+    if (!file) return res.status(404).send('File not Found!!');
+    res.status(200).send(file);
+}
+
 
 
 const toggeleStar = async (req, res) => {
@@ -70,7 +82,7 @@ const toggeleStar = async (req, res) => {
 
 
 const deleteFile = async (req, res) => {
-    // if (!req.isAuthenticated()) return res.status(401).send('Unauthorized');
+    if (!req.isAuthenticated()) return res.status(401).send('Unauthorized');
     try {
         const file = await File.findOne({ _id: req.params.id });
         if (!file) {
@@ -92,4 +104,4 @@ const deleteFile = async (req, res) => {
 
 
 
-export { Upload, fetchAll, toggeleStar, deleteFile }
+export { Upload, fetchAll, fetchSingle, toggeleStar, deleteFile }
