@@ -1,7 +1,11 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema({
     userId: {
+        type: String,
+        require: true
+    },
+    ownerId: {
         type: String,
         require: true
     },
@@ -24,17 +28,7 @@ const Schema = mongoose.Schema({
     size: {
         type: String,
     },
-    starred: {
-        type: Boolean,
-        default: false
-    },
-    deletedAt: {
-        type: Date,
-        default: null
-    }
-
 }, { timestamps: true })
 
-Schema.index({ deletedAt: 1 }, { expireAfterSeconds: 2592000 });
 
-export default mongoose.model("File", Schema);
+export default mongoose.model("Save", Schema);
