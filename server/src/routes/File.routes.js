@@ -1,5 +1,5 @@
 import express from "express"
-import { Upload, saveFile, fetchAll, fetchSingle, toggeleStar, deleteFile } from "../controllers/File.controllers.js";
+import { Upload, saveFile, fetchAll, fetchSingle, fetchSaves, toggeleStar, deleteFile } from "../controllers/File.controllers.js";
 
 const router = express.Router()
 
@@ -12,5 +12,6 @@ router.post('/:id/delete', deleteFile);
 
 router.get("/all", fetchAll);
 router.get("/:id/single", fetchSingle);
+router.get("/saves", fetchSaves);
 
 export default router;

@@ -86,6 +86,13 @@ const fetchSingle = async (req, res) => {
 }
 
 
+const fetchSaves = async(req, res) => {
+    if (!req.isAuthenticated()) return res.status(401).send('Unauthorized');
+    const files = await Save.find({ userId: req.session.passport.user })
+    res.send(files)
+}
+
+
 
 const toggeleStar = async (req, res) => {
     if (!req.isAuthenticated()) return res.status(401).send('Unauthorized');
@@ -127,4 +134,4 @@ const deleteFile = async (req, res) => {
 
 
 
-export { Upload, saveFile, fetchAll, fetchSingle, toggeleStar, deleteFile }
+export { Upload, fetchSaves, saveFile, fetchAll, fetchSingle, toggeleStar, deleteFile }
