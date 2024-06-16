@@ -187,12 +187,12 @@ export function Profile() {
                 <SheetHeader className='px-4 mb-10'>
                     <div className='flex flex-col gap-5 items-center mb-3'>
                         <Avatar className='w-24 h-24'>
-                            <AvatarImage src={user.profilePic} className='select-none cursor-pointer' />
+                            <AvatarImage src={user?.profilePic} className='select-none cursor-pointer' />
                             <AvatarFallback>user</AvatarFallback>
                         </Avatar>
                         <div className='flex flex-col gap-2 bg-slate-200 py-2 px-5 rounded-sm bg-opacity-70 w-full text'>
-                            <span className='overflow-hidden'>{user.name}</span>
-                            <span className='overflow-hidden'>{user.email}</span>
+                            <span className='overflow-hidden'>{user?.name}</span>
+                            <span className='overflow-hidden'>{user?.email}</span>
                         </div>
                     </div>
                     <hr />
@@ -242,7 +242,7 @@ export function Profile() {
                 </SheetFooter>
             </SheetContent>
         ),
-        verify: !user.verified ? (
+        verify: !user?.verified ? (
             <SheetContent>
                 <SheetHeader>
                     <SheetTitle>Verify Email</SheetTitle>
@@ -253,7 +253,7 @@ export function Profile() {
                 <div className='my-8'>
                     <input
                         type="email"
-                        value={user.email}
+                        value={user?.email}
                         disabled
                         className='block rounded-sm py-3 px-4 w-full text-lg bg-slate-200 select-none disabled:text-gray-500 text-center'
                     />
@@ -391,7 +391,7 @@ export function Profile() {
         <Sheet onOpenChange={(isOpen) => { if (!isOpen) setOptions('default'); }}>
             <SheetTrigger asChild>
                 <Avatar className='cursor-pointer select-none'>
-                    <AvatarImage src={user.profilePic} />
+                    <AvatarImage src={user?.profilePic} />
                     <AvatarFallback>user</AvatarFallback>
                 </Avatar>
             </SheetTrigger>

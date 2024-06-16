@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
 import { Bookmark, CircleCheckBig } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 function SharedFile() {
   const [file, setFile] = useState(null);
@@ -51,11 +52,14 @@ function SharedFile() {
   };
   
   const handleSaveFile = async() => {
+    let isAuthenticated = window.localStorage.getItem("isAuthenticated");
+    if (!isAuthenticated) return toast.error('Must be logged in to Save file!', { duration: 5000, position: 'top-center' })
     try {
-      await axios.post(`/api/files/save`, { id });
+      await axios.post('/api/files/save', { id });
       setSaved(true);
     } catch (err) {
       console.error('Error saving the file', err);
+      toast.error('Some error occurred!', { duration: 5000, position: 'top-center' })
     }
   };
 
