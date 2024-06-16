@@ -1,9 +1,10 @@
 import express from "express"
-import { Upload, fetchAll, fetchSingle, toggeleStar, deleteFile } from "../controllers/File.controllers.js";
+import { Upload, saveFile, fetchAll, fetchSingle, toggeleStar, deleteFile } from "../controllers/File.controllers.js";
 
 const router = express.Router()
 
 router.post("/upload", Upload)
+router.post('/save', saveFile);
 
 router.post('/:id/toggleStar', toggeleStar);
 

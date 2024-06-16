@@ -1,5 +1,6 @@
 import cloudinary from "../utils/cloudinary.js";
 import File from "../models/file.models.js"
+import Save from "../models/save.model.js";
 import UploadFile from "../config/multer.config.js";
 import getResourceType from "../services/getResourceType.js";
 import fs from 'fs';
@@ -41,6 +42,28 @@ const Upload = (req, res) => {
         console.log(error);
     }
 
+}
+
+
+const saveFile = async (req, res) => {
+    if (!req.isAuthenticated()) return res.status(401).send('Unauthorized');
+    const { id } = req.body;
+    try {
+        const file = await File.findOne({ _id: id });
+        Save.create({
+            userId: req.session.passport.user,
+            ownerId: id,
+            filename: file.filename,
+            url: file.url,
+            type: file.type,
+            format: file.format,
+            size: file.size,
+        })
+        res.status(200).send('ok');
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: err.message });
+    }
 }
 
 
@@ -104,4 +127,4 @@ const deleteFile = async (req, res) => {
 
 
 
-export { Upload, fetchAll, fetchSingle, toggeleStar, deleteFile }
+export { Upload, saveFile, fetchAll, fetchSingle, toggeleStar, deleteFile }
