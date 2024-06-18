@@ -8,30 +8,30 @@ import searchReducer from '../Slices/searchSlice';
 import dropdownReducer from '../Slices/dropdownSlice';
 import userReducer from '../Slices/userSlice';
 import sortByReducer from '../Slices/sortBySlice';
-
-
+import savesReducer from '../Slices/savesSlice';
 
 const rootReducer = combineReducers({
-  tabs: tabsReducer,
-  files: filesReducer,
-  search: searchReducer,
-  dropdown: dropdownReducer,
-  user: userReducer,
-  sortBy: sortByReducer,
-})
+    tabs: tabsReducer,
+    files: filesReducer,
+    search: searchReducer,
+    dropdown: dropdownReducer,
+    user: userReducer,
+    sortBy: sortByReducer,
+    saves: savesReducer,
+});
 
 const persistConfig = {
-  key: 'root',
-  storage,
-  blacklist: ['tabs', 'search', 'dropdown'],
+    key: 'root',
+    storage,
+    blacklist: ['tabs', 'search', 'dropdown'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) => 
+        getDefaultMiddleware({ serializableCheck: false }),
 });
 
 export const persistor = persistStore(store);
