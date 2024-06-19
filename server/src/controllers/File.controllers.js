@@ -1,6 +1,6 @@
 import cloudinary from "../utils/cloudinary.js";
 import File from "../models/file.models.js"
-import Save from "../models/save.model.js";
+import Save from "../models/save.models.js";
 import UploadFile from "../config/multer.config.js";
 import getResourceType from "../services/getResourceType.js";
 import fs from 'fs';
@@ -133,5 +133,27 @@ const deleteFile = async (req, res) => {
 
 
 
+const removeSaved = async (req, res) => {
+    if (!req.isAuthenticated()) return res.status(401).send('Unauthorized');
 
-export { Upload, fetchSaves, saveFile, fetchAll, fetchSingle, toggeleStar, deleteFile }
+    const fileId = req.body.id;
+    const userId = req.session.passport.user;
+
+    if (!fileId) return res.status(400).json({ error: 'File ID is required' });
+
+    try {
+        const saveDocument = await Save.findOne({ _id: fileId, userId: userId });
+        if (!saveDocument) return res.status(404).json({ error: 'File not found' });
+
+        await Save.deleteOne({ _id: req.body.id });
+        
+        res.send('ok');
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: err.message });
+    }
+};
+
+
+
+export { Upload, fetchSaves, saveFile, fetchAll, fetchSingle, toggeleStar, deleteFile, removeSaved }

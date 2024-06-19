@@ -1,5 +1,5 @@
 import express from "express"
-import { Upload, saveFile, fetchAll, fetchSingle, fetchSaves, toggeleStar, deleteFile } from "../controllers/File.controllers.js";
+import { Upload, saveFile, fetchAll, fetchSingle, fetchSaves, toggeleStar, deleteFile, removeSaved } from "../controllers/File.controllers.js";
 
 const router = express.Router()
 
@@ -9,6 +9,7 @@ router.post('/save', saveFile);
 router.post('/:id/toggleStar', toggeleStar);
 
 router.post('/:id/delete', deleteFile);
+router.delete('/remove', removeSaved);
 
 router.get("/all", fetchAll);
 router.get("/:id/single", fetchSingle);
