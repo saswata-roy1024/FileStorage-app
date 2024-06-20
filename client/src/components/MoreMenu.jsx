@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import downloadFile from './features/downloadFile';
 import { toggleStarFile, deleteFile } from '@/Redux/Slices/filesSlice';
+import { removeSaves } from '@/Redux/Slices/savesSlice';
 import { EllipsisVertical, Copy, Share2, ArrowDownToLine, Star, Trash2 } from 'lucide-react';
 import {
     DropdownMenu,
@@ -25,10 +26,13 @@ import {
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import generateLink from './features/generateLink'
+import axios from 'axios';
 
 function MoreMenu({ file }) {
 
     const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
+
+    const tabs = useSelector((state) => state.tabs.value);
 
     const dispatch = useDispatch();
 
@@ -37,8 +41,9 @@ function MoreMenu({ file }) {
         dispatch(toggleStarFile(file._id));
     };
 
-    const handleDeleteFile = () => {
-        dispatch(deleteFile(file._id));
+    const handleDeleteFile = async () => {
+        if (tabs === 'Saved') return dispatch(removeSaves(file._id));
+        else return dispatch(deleteFile(file._id));
     };
 
     const handleDownloadFile = () => {
@@ -64,7 +69,7 @@ function MoreMenu({ file }) {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleToggleStar} className='gap-2'> <Star size={19} /> {file.starred ? 'Unstar' : 'Mark as Star'}</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleDeleteFile} className='text-red-500 gap-2'> <Trash2 size={19} /> Delete</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDeleteFile} className='text-red-500 gap-2'> <Trash2 size={19} /> {tabs === 'Trash Bin' ? 'Restore' : tabs === 'Saved' ? 'Remove' : 'Delete'}</DropdownMenuItem>
                 <DropdownMenuSeparator />
             </DropdownMenuContent>
         </DropdownMenu>
@@ -79,7 +84,7 @@ function MoreMenu({ file }) {
                     <AlertDialogTitle>Link:</AlertDialogTitle>
                     <AlertDialogDescription>
                         <div className="flex items-center space-x-2">
-                            <Input value={generateLink(file._id)} disabled className='disabled:cursor-default disabled:opacity-100'/>
+                            <Input value={generateLink(file._id)} disabled className='disabled:cursor-default disabled:opacity-100' />
                             <Button variant="outline" size="icon" onClick={handleCopyLink}><Copy /></Button>
                         </div>
                     </AlertDialogDescription>
