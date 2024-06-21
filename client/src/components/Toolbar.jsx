@@ -5,7 +5,7 @@ import { Hash, LayoutGrid, Rows2, ArrowUpDown, Check } from "lucide-react";
 import UploadFile from '@/components/UploadFile';
 import { useSelector, useDispatch } from 'react-redux'
 import { setSortBy } from '@/Redux/Slices/sortBySlice';
-import { useState } from 'react';
+import { setView } from '@/Redux/Slices/viewSlice';
 import { setSearch } from '@/Redux/Slices/searchSlice';
 import Dropdown from './Dropdown';
 import { Profile } from './ProfileComponent';
@@ -25,7 +25,7 @@ function Toolbar() {
 
     const tabs = useSelector((state) => state.tabs.value);
     const sortBy = useSelector((state) => state.sortBy.value);
-    const [view, setView] = useState(true)
+    const view = useSelector((state) => state.view.value);
 
     return (
 
@@ -45,8 +45,8 @@ function Toolbar() {
 
             <div className='w-full flex justify-between items-center'>
                 <div className='flex gap-2'>
-                    <Button className=" font-bold dark:text-gray-900 text-sm flex items-center gap-2" onClick={view ? () => setView(false) : () => setView(true)} >
-                        {view ? <LayoutGrid /> : <Rows2 />}
+                    <Button className=" font-bold dark:text-gray-900 text-sm flex items-center gap-2" onClick={ view === 'Grid' ? () => dispatch(setView('Table')) : () => dispatch(setView('Grid'))} >
+                        {view === 'Grid' ? <LayoutGrid /> : <Rows2 />}
                     </Button>
                     <DropdownMenu>
                         <DropdownMenuTrigger className='outline-none bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-14 inline-flex items-center justify-center rounded-md'><ArrowUpDown /></DropdownMenuTrigger>

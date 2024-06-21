@@ -1,5 +1,5 @@
 import React from 'react'
-import CardContainer from './CardContainer'
+import CardContainer from './ItemsContainer'
 import Toolbar from './Toolbar'
 function MainContainer() {
   return (

@@ -3,6 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchFiles } from '@/Redux/Slices/filesSlice';
 import { fetchSaves } from '@/Redux/Slices/savesSlice';
 import Card from './Card';
+import TableRows from './TableRows';
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
 
 function CardContainer() {
     const search = useSelector((state) => state.search.value);
@@ -12,6 +21,7 @@ function CardContainer() {
     const tabs = useSelector((state) => state.tabs.value);
     const sortBy = useSelector((state) => state.sortBy.value);
     const saves = useSelector((state) => state.saves.saves);
+    const view = useSelector((state) => state.view.value);
 
     useEffect(() => {
         dispatch(fetchFiles());
@@ -56,10 +66,36 @@ function CardContainer() {
         .sort(compareFiles);
 
     return (
-        <div className='pl-10 pr-7 h-[70vh] grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 overflow-y-scroll w-full'>
-            {filteredFiles.map((file) => (
-                <Card file={file} key={file._id} />
-            ))}
+        <div className='pl-10 pr-7 h-[70vh] overflow-y-scroll w-full'>
+            {view === 'Grid' ? (
+                <div className='grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8'>
+                    {filteredFiles.map((file) => (
+                        <Card file={file} key={file._id} />
+                    ))}
+                </div>
+            ) : (
+                <Table className="min-w-full w-full">
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Filename</TableHead>
+                            <TableHead>Type</TableHead>
+                            <TableHead>Size</TableHead>
+                            <TableHead>Created At</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {filteredFiles.length ? (
+                            <TableRows files={filteredFiles} />
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={4} className="h-24 text-center">
+                                    No results.
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            )}
         </div>
     );
 }

@@ -28,7 +28,7 @@ import { Button } from './ui/button';
 import generateLink from './features/generateLink'
 import axios from 'axios';
 
-function MoreMenu({ file }) {
+function MoreMenu({ file, className }) {
 
     const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
 
@@ -58,7 +58,7 @@ function MoreMenu({ file }) {
     return (<>
 
         <DropdownMenu>
-            <DropdownMenuTrigger className="absolute top-2 right-2 p-1 rounded-sm border bg-opacity-75 hover:bg-gray-200" >
+            <DropdownMenuTrigger className={`absolute top-2 right-2 p-1 rounded-sm border bg-opacity-75 hover:bg-gray-200 ${className}`} >
                 <EllipsisVertical />
             </DropdownMenuTrigger>
             <DropdownMenuContent className='px-2 *:text-base *:font-semibold *:w-36'>

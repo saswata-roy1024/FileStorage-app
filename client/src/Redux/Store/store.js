@@ -9,6 +9,7 @@ import dropdownReducer from '../Slices/dropdownSlice';
 import userReducer from '../Slices/userSlice';
 import sortByReducer from '../Slices/sortBySlice';
 import savesReducer from '../Slices/savesSlice';
+import viewReducer from '../Slices/viewSlice';
 
 const rootReducer = combineReducers({
     tabs: tabsReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     user: userReducer,
     sortBy: sortByReducer,
     saves: savesReducer,
+    view: viewReducer,
 });
 
 const persistConfig = {
