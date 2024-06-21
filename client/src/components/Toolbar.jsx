@@ -1,9 +1,9 @@
 import React from 'react';
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Hash, LayoutGrid, Rows2, ArrowUpDown, Check } from "lucide-react";
 import UploadFile from '@/components/UploadFile';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import { setSortBy } from '@/Redux/Slices/sortBySlice';
 import { setView } from '@/Redux/Slices/viewSlice';
 import { setSearch } from '@/Redux/Slices/searchSlice';
@@ -16,9 +16,8 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-
+} from "@/components/ui/dropdown-menu";
+import DarkMode from './DarkMode';
 
 function Toolbar() {
     const dispatch = useDispatch();
@@ -28,14 +27,16 @@ function Toolbar() {
     const view = useSelector((state) => state.view.value);
 
     return (
-
         <div className='border-b py-5 w-full px-10 lg:max-h-44'>
             <nav className='flex justify-between items-center'>
                 <div className='flex items-center gap-1 md:text-xl lg:text-2xl  dark:bg-slate-900 rounded-sm font-extrabold'>
                     <Hash />
                     <span>{tabs}</span>
                 </div>
-                <Profile />
+                <div className='flex gap-5'>
+                    <DarkMode />
+                    <Profile />
+                </div>
             </nav>
 
             <div className='flex justify-center items-center gap-2'>
@@ -45,7 +46,7 @@ function Toolbar() {
 
             <div className='w-full flex justify-between items-center'>
                 <div className='flex gap-2'>
-                    <Button className=" font-bold dark:text-gray-900 text-sm flex items-center gap-2" onClick={ view === 'Grid' ? () => dispatch(setView('Table')) : () => dispatch(setView('Grid'))} >
+                    <Button className=" font-bold dark:text-gray-900 text-sm flex items-center gap-2" onClick={view === 'Grid' ? () => dispatch(setView('Table')) : () => dispatch(setView('Grid'))} >
                         {view === 'Grid' ? <LayoutGrid /> : <Rows2 />}
                     </Button>
                     <DropdownMenu>
@@ -61,13 +62,11 @@ function Toolbar() {
                 </div>
 
                 <div className='flex gap-3'>
-
                     <UploadFile className='font-bold flex items-center gap-1' />
                 </div>
             </div>
-
         </div>
-    )
+    );
 }
 
-export default Toolbar
+export default Toolbar;

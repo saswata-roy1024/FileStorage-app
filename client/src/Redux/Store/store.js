@@ -10,6 +10,7 @@ import userReducer from '../Slices/userSlice';
 import sortByReducer from '../Slices/sortBySlice';
 import savesReducer from '../Slices/savesSlice';
 import viewReducer from '../Slices/viewSlice';
+import darkModeReducer from '../Slices/darkModeSlice';
 
 const rootReducer = combineReducers({
     tabs: tabsReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     sortBy: sortByReducer,
     saves: savesReducer,
     view: viewReducer,
+    darkMode: darkModeReducer,
 });
 
 const persistConfig = {
