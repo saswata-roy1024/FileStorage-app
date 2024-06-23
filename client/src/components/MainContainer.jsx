@@ -3,7 +3,7 @@ import CardContainer from './ItemsContainer'
 import Toolbar from './Toolbar'
 function MainContainer() {
   return (
-    <div className='w-full '>
+    <div className='w-full dark:bg-[#3C3E8C]'>
       <Toolbar />
       <CardContainer />
     </div>

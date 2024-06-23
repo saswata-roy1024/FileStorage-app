@@ -14,7 +14,7 @@ const TableRows = ({ files }) => {
                     <TableCell>{file.type}</TableCell>
                     <TableCell>{file.size}</TableCell>
                     <TableCell className='w-32' >{new Date(file.createdAt).toLocaleDateString()}</TableCell>
-                    <TableCell className='w-0'><MoreMenu file={file} className={'relative'}/></TableCell>
+                    <TableCell className='w-0'><MoreMenu file={file} className={'relative rounded-sm'}/></TableCell>
                 </TableRow>
             ))}
         </>

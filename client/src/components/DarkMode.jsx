@@ -17,8 +17,8 @@ const DarkMode = () => {
   }, [darkMode]);
 
   return (
-    <Button variant="outline" size="icon" className="border-slate-600" onClick={() => dispatch(toggleDarkMode())}>
-      {darkMode ? <Sun /> : <Moon />}
+    <Button variant="outline" size="icon" className="bg-inherit border-none" onClick={() => dispatch(toggleDarkMode())}>
+      {darkMode ? <Sun size={32}/> : <Moon size={32} />}
     </Button>
   );
 };

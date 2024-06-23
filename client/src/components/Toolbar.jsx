@@ -27,11 +27,11 @@ function Toolbar() {
     const view = useSelector((state) => state.view.value);
 
     return (
-        <div className='border-b py-5 w-full px-10 lg:max-h-44'>
+        <div className='border-b-[2px] border-white  py-5 w-full px-10 lg:max-h-44'>
             <nav className='flex justify-between items-center'>
-                <div className='flex items-center gap-1 md:text-xl lg:text-2xl  dark:bg-slate-900 rounded-sm font-extrabold'>
-                    <Hash />
-                    <span>{tabs}</span>
+                <div className='flex items-center gap-1 md:text-3xl lg:text-3xl rounded-sm font-extrabold'>
+                    <Hash strokeWidth={3} size={29}/>
+                    <span style={{ fontFamily: 'Teko, sans-serif' }}>{tabs}</span>
                 </div>
                 <div className='flex gap-5'>
                     <DarkMode />
@@ -47,10 +47,10 @@ function Toolbar() {
             <div className='w-full flex justify-between items-center'>
                 <div className='flex gap-2'>
                     <Button className=" font-bold dark:text-gray-900 text-sm flex items-center gap-2" onClick={view === 'Grid' ? () => dispatch(setView('Table')) : () => dispatch(setView('Grid'))} >
-                        {view === 'Grid' ? <LayoutGrid /> : <Rows2 />}
+                        {view === 'Grid' ? <LayoutGrid strokeWidth={2.4}/> : <Rows2 strokeWidth={2.4}/>}
                     </Button>
                     <DropdownMenu>
-                        <DropdownMenuTrigger className='outline-none bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-14 inline-flex items-center justify-center rounded-md'><ArrowUpDown /></DropdownMenuTrigger>
+                        <DropdownMenuTrigger className='outline-none bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-14 inline-flex items-center justify-center rounded-md'><ArrowUpDown strokeWidth={3}/></DropdownMenuTrigger>
                         <DropdownMenuContent className='py-3 px-4 w-40'>
                             <DropdownMenuLabel className='text-center text-base font-bold'>Sort By</DropdownMenuLabel>
                             <DropdownMenuSeparator />

@@ -58,7 +58,7 @@ function MoreMenu({ file, className }) {
     return (<>
 
         <DropdownMenu>
-            <DropdownMenuTrigger className={`absolute top-2 right-2 p-1 rounded-sm border bg-opacity-75 hover:bg-gray-200 ${className}`} >
+            <DropdownMenuTrigger className={`absolute top-2 right-2 p-1 border bg-opacity-75 hover:bg-gray-200 ${className}`} >
                 <EllipsisVertical />
             </DropdownMenuTrigger>
             <DropdownMenuContent className='px-2 *:text-base *:font-semibold *:w-36'>

@@ -31,7 +31,7 @@ const Dropdown = (props) => {
     return (
         <div className="relative inline-block text-left">
             <Button className={props.className} onClick={() => dispatch(toggleDropdown())}>
-                <ListFilter />
+                <ListFilter strokeWidth={3}/>
             </Button>
             {isOpen && (
                 <div
