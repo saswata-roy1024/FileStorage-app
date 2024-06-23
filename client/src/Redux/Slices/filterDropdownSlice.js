@@ -4,10 +4,10 @@ const initialState = {
   isOpen: false,
   selectedOptions: {
     all: true,
-    image: false,
-    video: false,
-    audio: false,
-    document: false,
+    image: true,
+    video: true,
+    audio: true,
+    document: true,
   },
 };
 
@@ -21,7 +21,7 @@ const dropdownSlice = createSlice({
     setOption: (state, action) => {
       const { name, checked } = action.payload;
 
-       if (name === 'all') {
+      if (name === 'all') {
         Object.keys(state.selectedOptions).forEach((key) => {
           state.selectedOptions[key] = checked;
         });

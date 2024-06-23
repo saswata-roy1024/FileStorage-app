@@ -41,10 +41,37 @@ function CardContainer() {
         }
     };
 
+    const getFileType = (format) => {
+        switch (format) {
+            case 'jpg':
+            case 'jpeg':
+            case 'png':
+                return 'image';
+            case 'pdf':
+            case 'doc':
+            case 'docs':
+            case 'docx':
+            case 'ppt':
+            case 'pptx':
+            case 'xls':
+            case 'xlsx':
+                return 'document';
+            case 'mp4':
+            case 'mov':
+            case 'mkv':
+                return 'video';
+            case 'mp3':
+                return 'audio';
+            default:
+                return 'raw';
+        }
+    };
+
     const filteredFiles = (tabs !== 'Saved' ? files : saves)
         .filter((item) => {
             const matchesSearch = !search || item.filename.toLowerCase().includes(search.toLowerCase());
-            const matchesFileType = selectedOptions.all || selectedOptions[item.type];
+            const fileType = getFileType(item.format);
+            const matchesFileType = selectedOptions.all || selectedOptions[fileType];
             let condition = false;
 
             switch (tabs) {

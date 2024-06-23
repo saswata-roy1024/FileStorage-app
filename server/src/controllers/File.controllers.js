@@ -2,7 +2,6 @@ import cloudinary from "../utils/cloudinary.js";
 import File from "../models/file.models.js"
 import Save from "../models/save.models.js";
 import UploadFile from "../config/multer.config.js";
-import getResourceType from "../services/getResourceType.js";
 import fs from 'fs';
 
 const Upload = (req, res) => {
@@ -13,7 +12,7 @@ const Upload = (req, res) => {
             if (err) return res.status(500).json({ message: 'Error uploading file: ' + err.message });
             console.log("File: " + req.file);
 
-            cloudinary.uploader.upload(req.file.path, { resource_type: getResourceType(req.file.path) }, (err, result) => {
+            cloudinary.uploader.upload(req.file.path, { resource_type: 'auto' }, (err, result) => {
                 if (err) {
                     console.log(err);
                     return res.status(500).json({

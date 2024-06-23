@@ -9,7 +9,7 @@ function Sidebar() {
     const dispatch = useDispatch();
 
     return (
-        <div className='w-[20%] lg:max-w-60 bg-gradient-to-tr to-indigo-300 from-indigo-200  dark:from-[#2B2A70] dark:to-[#2f2e74] py-5 h-screen'>
+        <div className='w-[20%] lg:max-w-60 bg-indigo-200  dark:bg-[#2B2A70] py-5 h-screen'>
 
             <div className='min-w-12 lg:w-full pb-5 flex justify-center gap-1 border-b-2 font- text-sm text-indigo-950 dark:text-indigo-50 items-center'>
                 <FolderOpen strokeWidth={3}/>
@@ -55,7 +55,6 @@ function Sidebar() {
 
                 <Button variant="ghost" className="w-full text-gray-900 dark:text-gray-200 dark:hover:text-red-500 hover:text-red-500 flex gap-2 items-center mb-3 rounded-none">
                     <LogOut size={26} strokeWidth={3} />
-                    <span style={{ fontFamily: 'Teko, sans-serif' }} className='font-bold text-lg pb-1 relative top-[2px]'></span>
                 </Button>
             </div>
         </div>

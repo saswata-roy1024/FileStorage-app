@@ -5,7 +5,7 @@ function Dashboard() {
   if (!window.localStorage.getItem("isAuthenticated")) return <Navigate to="/" />;
 
   return (
-    <div className='h-screen flex bg-gradient-to-l to-indigo-100 from-indigo-300'>
+    <div className='h-screen flex'>
       <Sidebar />
       <MainContainer />
     </div>

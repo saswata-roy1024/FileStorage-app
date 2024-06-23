@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import tabsReducer from '../Slices/tabsSlice';
 import filesReducer from '../Slices/filesSlice';
 import searchReducer from '../Slices/searchSlice';
-import dropdownReducer from '../Slices/dropdownSlice';
+import dropdownReducer from '../Slices/filterDropdownSlice';
 import userReducer from '../Slices/userSlice';
 import sortByReducer from '../Slices/sortBySlice';
 import savesReducer from '../Slices/savesSlice';

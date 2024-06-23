@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSortBy } from '@/Redux/Slices/sortBySlice';
 import { setView } from '@/Redux/Slices/viewSlice';
 import { setSearch } from '@/Redux/Slices/searchSlice';
-import Dropdown from './Dropdown';
+import Dropdown from './FilterDropdown';
 import { Profile } from './ProfileComponent';
 import {
     DropdownMenu,
