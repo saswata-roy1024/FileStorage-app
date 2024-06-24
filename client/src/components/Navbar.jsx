@@ -26,7 +26,8 @@ function Nav() {
         <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
           Contact
         </Link>
-        <Link className="text-white text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 py-1 px-2 rounded-sm" href="#">
+        <Link className="text-white text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 py-1 px-2 rounded-sm"
+          to={"/auth"}>
           Sign In
         </Link>
       </nav>
@@ -48,7 +49,8 @@ function Nav() {
               <Link className="font-medium hover:underline underline-offset-4" href="#">
                 Contact
               </Link>
-              <Link className=" w-full text-center text-white font-semibold bg-indigo-600 hover:bg-indigo-500 py-4 px-2 rounded-sm" href="#">
+              <Link className=" w-full text-center text-white font-semibold bg-indigo-600 hover:bg-indigo-500 py-4 px-2 rounded-sm"
+                to={"/auth"}>
                 Sign In
               </Link>
 
