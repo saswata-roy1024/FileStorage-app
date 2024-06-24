@@ -3,6 +3,10 @@ import { body, validationResult } from 'express-validator';
 import otpModel from '../models/otp.models.js'
 import mailer from '../config/nodemailer.config.js';
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config();
+
 
 const fetchUser = async (req, res) => {
     const _id = req.session.passport.user;
@@ -71,28 +75,36 @@ const updateUser = [
 
 
 const sendOtp = async (req, res) => {
-    const _id = req.session.passport.user;
-    if (!_id) return res.status(401).send('Unauthorized');
-
     try {
-        const user = await User.findOne({ _id });
-        if (!user) return res.status(404).send('User not found');
+        let user;
+        if (req?.session?.passport?.user) {
+            user = await User.findOne({ _id: req.session.passport.user });
+            if (!user) return res.status(404).send('User not found');
+        } else {
+            user = await User.findOne({ email: req.body.email });
+            if (!user) return res.status(404).send('User not found');
+
+            const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '30m' });
+            res.cookie('jwt', token, {
+                httpOnly: true,
+                secure: false,
+                maxAge: 30 * 60 * 1000
+            });
+        }
 
         const otp = String(Math.floor(1000 + Math.random() * 9000));
-        const HashedOtp = await bcrypt.hash(otp, 10);
+        const hashedOtp = await bcrypt.hash(otp, 10);
 
-        const oldOtp = await otpModel.findOne({ userId: _id });
-        if (oldOtp) await otpModel.deleteOne({ userId: _id });
+        const oldOtp = await otpModel.findOne({ userId: user._id });
+        if (oldOtp) await otpModel.deleteOne({ userId: user._id });
 
         await otpModel.create({
-            otp: HashedOtp,
-            userId: _id,
+            otp: hashedOtp,
+            userId: user._id,
         });
 
-        mailer(user.email, otp)
-            .then(response => res.send('Otp sended Successfully'))
-            .catch(error => res.status(500).send('Error sending email'));
-
+        await mailer(user.email, otp);
+        res.send('Otp sent successfully');
     } catch (error) {
         console.log('Error:', error);
         res.status(500).send('Internal Server Error');
@@ -168,8 +180,23 @@ const resetPassword = [
 
     async (req, res) => {
         const { newPassword } = req.body;
+        let _id;
 
-        const _id = req.session.passport.user;
+        if (req?.session?.passport?.user) {
+            _id = req.session.passport.user;
+        } else {
+            const token = req.cookies.jwt;
+            if (!token) return res.status(401).send('Unauthorized: No token provided');
+
+            try {
+                const decoded = jwt.verify(token, process.env.JWT_SECRET);
+                _id = decoded._id;
+            } catch (error) {
+                console.log('JWT Error:', error);
+                return res.status(400).send('Invalid token');
+            }
+        }
+
         if (!_id) return res.status(401).send('Unauthorized');
         try {
             const user = await User.findOne({ _id });

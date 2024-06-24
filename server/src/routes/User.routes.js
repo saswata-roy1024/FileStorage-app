@@ -7,6 +7,7 @@ const router = Router()
 router.get("/profile", fetchUser)
 router.put("/profile", updateUser)
 router.get("/verify", sendOtp)
+router.post("/send-otp", sendOtp)
 
 router.post("/verify", verifyOtp, verifyEmail)
 

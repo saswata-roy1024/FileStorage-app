@@ -7,6 +7,7 @@ import FileRouter from './src/routes/File.routes.js'
 import AuthRouter from './src/routes/Auth.routes.js'
 import UserRouter from './src/routes/User.routes.js'
 import cors from 'cors'
+import cookieParser from "cookie-parser";
 
 import dotenv from 'dotenv'
 dotenv.config();
@@ -38,6 +39,7 @@ app.use(cors({ credentials: true, origin: process.env.ORIGIN_URL, secure:false }
 app.use(express.json())
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookieParser())
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/files", FileRouter);
