@@ -10,6 +10,8 @@ import video from '../assets/video.png'
 import mp3 from '../assets/mp3.png'
 
 function Card({ file }) {
+    const validFormats = ['jpg', 'jpeg', 'png', 'mp4', 'mov', 'mkv'];
+
     const icon = () => {
         if (file.format === 'jpg' || file.format === 'jpeg' || file.format === 'png') return <Image />;
         else if (file.format === 'mp4' || file.format === 'mov' || file.format === 'mkv') return <Play />;
@@ -42,7 +44,7 @@ function Card({ file }) {
             case 'mp4':
             case 'mov':
             case 'mkv':
-                return video;
+                return file.url.replace(/\.(mp4|mkv|mov)$/, '.png');;
             case 'mp3':
                 return mp3;
             default:
@@ -53,7 +55,7 @@ function Card({ file }) {
     return (
         <div className="max-w-sm my-10 bg-white dark:bg-indigo-700 bg-opacity-60 dark:bg-opacity-55 shadow-md rounded-lg overflow-hidden h-80 w-full hover:shadow-2xl">
             <div className="relative h-48 flex justify-center items-center">
-                <img className={file.format === 'jpg' || file.format === 'jpeg' || file.format === 'png' ?
+                <img className={validFormats.includes(file.format) ?
                     "w-full h-48 object-cover" :
                     'w-36 h-auto pt-7'} src={preview()} alt="File Preview" />
                 <MoreMenu file={file} className="rounded-full" />
