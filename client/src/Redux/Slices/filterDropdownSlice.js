@@ -8,6 +8,7 @@ const initialState = {
     video: true,
     audio: true,
     document: true,
+    Raw: true,
   },
 };
 
