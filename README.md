@@ -20,15 +20,22 @@ Welcome to the File Storage Application! This robust and user-friendly platform 
 
 # Installation
 
-  1. Clone the repository: git clone https://github.com/saswata-roy1024/FileStorage-app.git
-  2. Install dependencies:~
-        * Setup Client:
-              - Go to client: cd client
-              - Install dependencies: npm install
-        * Setup Server:
-              - Go to server: cd server
-              - Install dependencies: npm install
-  3. Set up environment variables:~
+  1. Clone the repository:
+     
+    git clone https://github.com/saswata-roy1024/FileStorage-app.git
+     
+  3. Install dependencies:~
+    * Setup Client:
+    
+    cd client
+    npm install
+
+   * Setup Server:
+
+    cd server
+    npm install
+  
+  5. Set up environment variables:~
      ** create a dotenv file **
    
     PORT = 8000
@@ -43,3 +50,19 @@ Welcome to the File Storage Application! This robust and user-friendly platform 
     CLIENT_SECRET = google_console_client_secret
     EMAIL_ID = sender_email_address 
     EMAIL_NODEMAILER_PASSWORD = password_of_less_secure_app_access_google
+
+
+After installation go to server directory and run command npm run server and in client directory run command npm run dev to start the project.
+
+# prerequisites
+
+* MogoDB URI obtain from mongodb.
+* Cloudinary Account for the the account name and cloudinary key.
+* Google console Client ID and Secret Key.
+* Google Mail account and password of less secure app access for nodemailer to send mail.
+
+# Useful resources
+* Get Oauth2 Credentials: https://support.google.com/cloud/answer/6158849?hl=en
+* Get Cloudinary API Key: https://console.cloudinary.com/settings/c-1ecd96890d10bd556f9550efa95458/api-keys
+* Get gmail Access key for nodemailar: https://mailtrap.io/blog/nodemailer-gmail/
+    
