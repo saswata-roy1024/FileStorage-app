@@ -152,7 +152,7 @@ export function Profile() {
             newPassword: passwordFields.newPassword,
             otp
         }
-        
+
         axios.post('/api/u/reset-password', Fields)
             .then(response => {
                 if (response.status === 200) {
@@ -185,19 +185,19 @@ export function Profile() {
         default: (
             <SheetContent>
                 <SheetHeader className='px-4 mb-10'>
-                    <div className='flex flex-col gap-5 items-center mb-3'>
+                    <div className='flex flex-col gap-5 items-center mb-6'>
                         <Avatar className='w-24 h-24'>
                             <AvatarImage src={user?.profilePic} className='select-none cursor-pointer' />
                             <AvatarFallback>user</AvatarFallback>
                         </Avatar>
-                        <div className='flex flex-col gap-2 bg-slate-200 py-2 px-5 rounded-sm bg-opacity-70 w-full text'>
+                        <div className='flex flex-col gap-2 bg-slate-200 dark:bg-slate-500 py-2 px-5 rounded-sm bg-opacity-70 w-full text'>
                             <span className='overflow-hidden'>{user?.name}</span>
                             <span className='overflow-hidden'>{user?.email}</span>
                         </div>
                     </div>
                     <hr />
                 </SheetHeader>
-                <div className='flex flex-col gap-3 text-black dark:text-slate-50 w-full items-start'>
+                <div className='flex flex-col gap-3 text-black dark:text-slate-50 w-full items-start px-5'>
                     <Button onClick={() => setOptions('update')} className="space-x-2 w-full h-11 outline" variant="ghost">
                         <CircleUserRound />
                         <span className='text-lg mb-1'>Update Profile</span>
@@ -211,11 +211,6 @@ export function Profile() {
                         <span className='text-lg'>modify Password</span>
                     </Button>
                 </div>
-                <SheetFooter>
-                    <Button onClick={() => { }} className='w-full absolute bottom-4 right-0 text-black dark:text-slate-50 text-base rounded-none' variant="ghost">
-                        <span className='border-y-2 w-full py-2'>Send Feedback</span>
-                    </Button>
-                </SheetFooter>
             </SheetContent>
         ),
         update: (
