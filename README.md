@@ -3,19 +3,20 @@ Welcome to the File Storage Application! This robust and user-friendly platform 
 
 # Features
 
-    Upload Files: Easily upload files of any type to your personal storage space.
-    Store Securely: Keep your files safe with our secure storage solutions.
-    Download Anytime: Access and download your files from anywhere, at any time.
-    Share with Others: Share files with friends, family, or colleagues with just a few clicks.
-    Save Shared Files: Conveniently save files that others have shared with you to your own storage.
+* Upload Files: Easily upload files of any type to your personal storage space.
+* Store Securely: Keep your files safe with our secure storage solutions.
+* Download Anytime: Access and download your files from anywhere, at any time.
+* Share with Others: Share files with friends, family, or colleagues with just a few clicks.
+* Save Shared Files: Conveniently save files that others have shared with you to your own storage.
+    
 
 # Getting Started
 
-    Sign Up: Create an account to get started.
-    Upload Files: Use the intuitive interface to upload your files.
-    Manage Your Storage: Organize and manage your files within your personal storage.
-    Share Files: Share files by generating shareable links or directly sending them to others.
-    Download and Save: Download your files whenever needed and save files shared by others to your storage.
+1. Sign Up: Create an account to get started.
+2. Upload Files: Use the intuitive interface to upload your files.
+3. Manage Your Storage: Organize and manage your files within your personal storage.
+4. Share Files: Share files by generating shareable links or directly sending them to others.
+5. Download and Save: Download your files whenever needed and save files shared by others to your storage.
 
 # Installation
 
@@ -28,7 +29,8 @@ Welcome to the File Storage Application! This robust and user-friendly platform 
               - Go to server: cd server
               - Install dependencies: npm install
   3. Set up environment variables:~
-     ** create a dotenv file
+     ** create a dotenv file **
+   
     PORT = 8000
     SESSION_SECRET = your_secret
     JWT_SECRET = your_secret
