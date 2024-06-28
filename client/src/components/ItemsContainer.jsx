@@ -71,7 +71,7 @@ function CardContainer() {
     return (
         <div className='pl-10 pr-7 h-[70vh] overflow-y-scroll w-full'>
             {view === 'Grid' ? (
-                <div className='grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8'>
+                <div className='grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-x-8'>
                     {filteredFiles.map((file) => (
                         <Card file={file} key={file._id} />
                     ))}

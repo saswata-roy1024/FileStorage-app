@@ -53,7 +53,7 @@ function Card({ file }) {
     };
 
     return (
-        <div className="max-w-sm my-10 bg-white dark:bg-indigo-700 bg-opacity-60 dark:bg-opacity-55 shadow-md rounded-lg overflow-hidden h-80 w-full hover:shadow-2xl">
+        <div className="max-w-96 md:max-w-sm my-4 md:my-10 bg-white dark:bg-indigo-700 bg-opacity-60 dark:bg-opacity-55 shadow-md rounded-lg overflow-hidden h-80 w-full hover:shadow-2xl">
             <div className="relative h-48 flex justify-center items-center">
                 <img className={validFormats.includes(file.format) ?
                     "w-full h-48 object-cover" :

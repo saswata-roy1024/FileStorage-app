@@ -27,30 +27,30 @@ function Toolbar() {
     const view = useSelector((state) => state.view.value);
 
     return (
-        <div className='border-b-[2px] border-white  py-5 w-full px-10 lg:max-h-44'>
+        <div className='border-b-[2px] border-white py-5 w-full px-5 md:px-10 lg:max-h-44'>
             <nav className='flex justify-between items-center'>
-                <div className='flex items-center gap-1 md:text-3xl lg:text-3xl rounded-sm font-extrabold'>
-                    <Hash strokeWidth={3} size={29}/>
+                <div className='flex items-center gap-1 text-2xl md:text-3xl rounded-sm font-extrabold'>
+                    <Hash strokeWidth={3} className='h-8 w-7 md:w-10'/>
                     <span style={{ fontFamily: 'Teko, sans-serif' }}>{tabs}</span>
                 </div>
-                <div className='flex gap-5'>
+                <div className='flex gap-3 sm:gap-5'>
                     <DarkMode />
                     <Profile />
                 </div>
             </nav>
 
             <div className='flex justify-center items-center gap-2'>
-                <Input onChange={(e) => dispatch(setSearch(e.target.value))} type="text" placeholder="Search" className="w-[18rem] h-12 placeholder:font-bold text-base border-slate-500 " />
-                <Dropdown className='h-12' />
+                <Input onChange={(e) => dispatch(setSearch(e.target.value))} type="text" placeholder="Search" className="max-w-72 sm:w-[18rem] h-11 md:h-12 my-5 md:my-3 lg:my-0 placeholder:font-bold text-base border-slate-500 " />
+                <Dropdown className='h-11 md:h-12' />
             </div>
 
             <div className='w-full flex justify-between items-center'>
                 <div className='flex gap-2'>
-                    <Button className=" font-bold dark:text-gray-900 text-sm flex items-center gap-2" onClick={view === 'Grid' ? () => dispatch(setView('Table')) : () => dispatch(setView('Grid'))} >
+                    <Button className=" font-bold dark:text-gray-900 text-sm flex items-center gap-2 p-3 md:px-4" onClick={view === 'Grid' ? () => dispatch(setView('Table')) : () => dispatch(setView('Grid'))} >
                         {view === 'Grid' ? <LayoutGrid strokeWidth={2.4}/> : <Rows2 strokeWidth={2.4}/>}
                     </Button>
                     <DropdownMenu>
-                        <DropdownMenuTrigger className='outline-none bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-14 inline-flex items-center justify-center rounded-md'><ArrowUpDown strokeWidth={3}/></DropdownMenuTrigger>
+                        <DropdownMenuTrigger className='outline-none bg-primary text-primary-foreground hover:bg-primary/90 h-10 w-12 md:w-14 inline-flex items-center justify-center rounded-md'><ArrowUpDown strokeWidth={3}/></DropdownMenuTrigger>
                         <DropdownMenuContent className='py-3 px-4 w-40'>
                             <DropdownMenuLabel className='text-center text-base font-bold'>Sort By</DropdownMenuLabel>
                             <DropdownMenuSeparator />
@@ -62,7 +62,7 @@ function Toolbar() {
                 </div>
 
                 <div className='flex gap-3'>
-                    <UploadFile className='font-bold flex items-center gap-1' />
+                    <UploadFile className='font-bold flex items-center gap-1 text-lg md:text-xl' />
                 </div>
             </div>
         </div>

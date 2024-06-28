@@ -34,7 +34,7 @@ const Dropdown = (props) => {
             </Button>
             {isOpen && (
                 <div
-                    className="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white dark:bg-[#020817] ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-full md:w-44 z-50"
+                    className="origin-top-right absolute right-0 md:left-0 mt-2 rounded-md shadow-lg bg-white dark:bg-[#020817] ring-1 ring-black ring-opacity-5 focus:outline-none w-fit md:w-44 z-50"
                 >
                     <div className="py-1 dark:text-gray-200">
                         {Object.keys(selectedOptions).map((option) => (

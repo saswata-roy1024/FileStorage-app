@@ -385,7 +385,7 @@ export function Profile() {
     return (
         <Sheet onOpenChange={(isOpen) => { if (!isOpen) setOptions('default'); }}>
             <SheetTrigger asChild>
-                <Avatar className='cursor-pointer select-none'>
+                <Avatar className='cursor-pointer select-none w-9 h-9 md:w-10 md:h-10'>
                     <AvatarImage src={user?.profilePic} />
                     <AvatarFallback>user</AvatarFallback>
                 </Avatar>

@@ -25,7 +25,7 @@ const FileUpload = (props) => {
             <Button onClick={handleButtonClick}
             style={{ fontFamily: 'Teko, sans-serif' }}
             className={`text-xl ${props.className}`}>
-                <Plus strokeWidth={2.5}/>
+                <Plus strokeWidth={2.5} className='hidden md:inline-block '/>
                 Upload
             </Button>
             <input
