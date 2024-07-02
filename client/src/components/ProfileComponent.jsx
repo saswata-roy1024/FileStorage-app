@@ -187,7 +187,7 @@ export function Profile() {
                 <SheetHeader className='px-4 mb-10'>
                     <div className='flex flex-col gap-5 items-center mb-6'>
                         <Avatar className='w-24 h-24'>
-                            <AvatarImage src={user?.profilePic} className='select-none cursor-pointer' />
+                            <AvatarImage src={user && user.profilePic} className='select-none cursor-pointer' />
                             <AvatarFallback>user</AvatarFallback>
                         </Avatar>
                         <div className='flex flex-col gap-2 bg-slate-200 dark:bg-slate-500 py-2 px-5 rounded-sm bg-opacity-70 w-full text'>
@@ -386,7 +386,7 @@ export function Profile() {
         <Sheet onOpenChange={(isOpen) => { if (!isOpen) setOptions('default'); }}>
             <SheetTrigger asChild>
                 <Avatar className='cursor-pointer select-none w-9 h-9 md:w-10 md:h-10'>
-                    <AvatarImage src={user?.profilePic} />
+                    <AvatarImage src={user && user.profilePic} />
                     <AvatarFallback>user</AvatarFallback>
                 </Avatar>
             </SheetTrigger>
