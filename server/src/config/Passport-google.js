@@ -6,7 +6,7 @@ passport.use('google', new GoogleStrategy(
     {
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: "http://localhost:8000/api/auth/google/callback",
+        callbackURL: "https://filestorage-xq97.onrender.com/api/auth/google/callback",
         scope: ["profile", "email"],
     },
     async function (accessToken, refreshToken, profile, done) {
