@@ -1,0 +1,35 @@
+{
+  "name": "filestore-app",
+  "version": "1.0.0",
+  "description": "Welcome to the File Storage Application! This robust and user-friendly platform allows you to securely upload, store, download, and share your files with ease. Whether you're looking to save important documents, share photos with friends, or access your files on the go, our application has you covered.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node server/server.js",
+    "build":"npm install && npm install --prefix client && npm run build --prefix client"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.2.0",
+    "connect-mongo": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.4",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.13",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
