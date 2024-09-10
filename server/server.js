@@ -83,7 +83,7 @@ app.use(session({
     rolling: true,
     cookie: {
         secure: process.env.NODE_ENV === 'production', // Set secure to true in production
-        httpOnly: true,
+        httpOnly: false,
         sameSite: 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000, // Corrected maxAge value
     },
