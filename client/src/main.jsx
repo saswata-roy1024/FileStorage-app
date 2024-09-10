@@ -8,7 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from './App.jsx'
 import './index.css'
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = "https://filestorage-xq97.onrender.com";
 axios.defaults.withCredentials = true;
 axios.interceptors.response.use(
   response => {

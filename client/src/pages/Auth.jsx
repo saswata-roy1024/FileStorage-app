@@ -151,7 +151,7 @@ function Signup() {
     };
 
     const handlewithgoogle = () => {
-        window.location.href = 'http://localhost:8000/api/auth/google';
+        window.location.href = 'https://filestorage-xq97.onrender.com/api/auth/google';
     };
 
     return (

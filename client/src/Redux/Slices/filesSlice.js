@@ -8,25 +8,25 @@ const initialState = {
 };
 
 export const fetchFiles = createAsyncThunk('files/fetchFiles', async () => {
-  const response = await axios.get('http://localhost:8000/api/files/all');
+  const response = await axios.get('/api/files/all');
   return response.data;
 });
 
 export const uploadFile = createAsyncThunk('files/uploadFile', async (file) => {
   const formData = new FormData();
   formData.append('file', file);
-  const response = await axios.post('http://localhost:8000/api/files/upload', formData);
+  const response = await axios.post('/api/files/upload', formData);
   console.log(response.data);
   return response.data;
 });
 
 export const toggleStarFile = createAsyncThunk('files/toggleStarFile', async (fileId) => {
-  const response = await axios.post(`http://localhost:8000/api/files/${fileId}/toggleStar`);
+  const response = await axios.post(`/api/files/${fileId}/toggleStar`);
   return response.data;
 });
 
 export const deleteFile = createAsyncThunk('files/deleteFile', async (fileId) => {
-  const response = await axios.post(`http://localhost:8000/api/files/${fileId}/delete`);
+  const response = await axios.post(`/api/files/${fileId}/delete`);
   return response.data;
 });
 

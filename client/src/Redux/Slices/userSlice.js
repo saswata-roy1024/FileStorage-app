@@ -9,13 +9,13 @@ const initialState = {
 };
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
-    const response = await axios.get('http://localhost:8000/api/u/profile');
+    const response = await axios.get('/api/u/profile');
     return response.data;
 });
 
 export const updateUser = createAsyncThunk('user/updateUser', async ({ name, email }, { rejectWithValue }) => {
     try {
-        const response = await axios.put('http://localhost:8000/api/u/profile', { name, email });
+        const response = await axios.put('/api/u/profile', { name, email });
         toast.success('User updated successfully');
         return response.data;
     } catch (error) {
