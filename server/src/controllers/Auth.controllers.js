@@ -18,7 +18,7 @@ const SignIn = (req, res) => {
 
 
 const GoogleCallback = (req, res) => {
-    res.status(200).redirect('http://localhost:5000/auth/callback');
+    res.status(200).redirect('https://filestorage-xq97.onrender.com/auth/callback');
 }
 
 const Failure = (req, res) => {
